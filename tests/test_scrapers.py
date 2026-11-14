@@ -4,7 +4,9 @@ from decimal import Decimal
 
 from tracker.scrapers.mytek import MytekScraper
 from tracker.scrapers.spacenet import SpacenetScraper
+from tracker.scrapers.technopro import TechnoproScraper
 from tracker.scrapers.tunisianet import TunisianetScraper
+from tracker.scrapers.zoom import ZoomScraper
 
 TUNISIANET = """
 <article class="product-miniature js-product-miniature" data-id-product="111">
@@ -49,6 +51,28 @@ MYTEK = """
 </div>
 """
 
+ZOOM = """
+<div class="product-miniature js-product-miniature" data-id-product="444">
+  <h5 class="product-name"><a href="https://shop.example/444-pc.html">PC Portable Demo Q – i5 – 16 Go – 512 Go SSD</a></h5>
+  <div class="product-availability"><span class="available">En stock</span></div>
+  <div class="product-price-and-shipping d-flex">
+    <div class="first-prices"><span aria-label="Prix" class="price product-price"> 2 199,000 TND </span></div>
+    <div class="second-prices"><span aria-label="Prix de base" class="regular-price">2 249,000 TND</span></div>
+  </div>
+  <button class="btn add-to-cart" data-id-product="444">Ajouter</button>
+</div>
+"""
+
+TECHNOPRO = """
+<article class="product-miniature js-product-miniature" data-id-product="555">
+  <h2 class="h3 product-title"><a href="https://shop.example/phone-demo.html">Smartphone Demo 8 128Go Noir</a></h2>
+  <div class="product-reference text-muted">DEMO-8-128-BK</div>
+  <div class="product-availability"><span class="badge product-unavailable">Rupture de stock</span></div>
+  <div class="product-price-and-shipping"><span class="product-price" content="599">599,000 TND</span></div>
+  <a class="btn-iqitwishlist-add" data-id-product="555"></a>
+</article>
+"""
+
 
 def test_tunisianet_cards():
     items = TunisianetScraper({}).parse_listing(TUNISIANET, "PC portable")
@@ -79,3 +103,20 @@ def test_mytek_cards():
 def test_pagination_url():
     s = TunisianetScraper({})
     assert s.page_url("https://shop.example/301-pc", 3) == "https://shop.example/301-pc?page=3"
+
+
+def test_zoom_cards():
+    items = ZoomScraper({}).parse_listing(ZOOM, "PC portable")
+    assert len(items) == 1
+    it = items[0]
+    assert it.site_product_id == "444" and it.reference is None
+    assert it.price == Decimal("2249.000") and it.promo_price == Decimal("2199.000")
+    assert it.in_stock is True
+
+
+def test_technopro_cards():
+    items = TechnoproScraper({}).parse_listing(TECHNOPRO, "Smartphone")
+    assert len(items) == 1
+    it = items[0]
+    assert it.price == Decimal("599.000") and it.promo_price is None
+    assert it.reference == "DEMO-8-128-BK" and it.in_stock is False

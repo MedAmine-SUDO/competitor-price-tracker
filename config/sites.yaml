@@ -70,3 +70,29 @@ sites:
         url: https://www.mytek.tn/telephonie-tunisie/smartphone-mobile-tunisie/smartphone-tunisie/smartphone-huawei.html
       - name: Smartphone
         url: https://www.mytek.tn/telephonie-tunisie/smartphone-mobile-tunisie/iphone.html
+
+  zoom:
+    name: Zoom
+    base_url: https://zoom.com.tn
+    engine: http
+    min_delay_s: 4
+    categories:
+      - name: PC portable
+        url: https://zoom.com.tn/914-pc-portables
+        max_pages: 15
+      - name: Smartphone
+        url: https://zoom.com.tn/719-smartphone-mobile
+        max_pages: 15
+
+  technopro:
+    name: Technopro
+    base_url: https://www.technopro-online.com
+    engine: http
+    min_delay_s: 4
+    categories:
+      - name: PC portable
+        url: https://www.technopro-online.com/prix-pc-portable-hp-dell-asus-lenovo-acer-Tunisie.html
+        max_pages: 15
+      - name: Smartphone
+        url: https://www.technopro-online.com/smartphone-android.html
+        max_pages: 25

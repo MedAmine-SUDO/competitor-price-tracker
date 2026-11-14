@@ -21,7 +21,7 @@ def dt(v) -> str:
     return "—" if pd.isna(v) else f"{v:,.3f} DT".replace(",", " ").replace(".", ",")
 
 
-COLORS = {"Tunisianet": "#2a78d6", "Spacenet": "#e8762c", "Mytek": "#1baf7a", "Égalité": "#98a2b3"}
+COLORS = {"Tunisianet": "#2a78d6", "Spacenet": "#e8762c", "Mytek": "#1baf7a", "Zoom": "#8e5bd0", "Technopro": "#d4447c", "Égalité": "#98a2b3"}
 
 
 @st.cache_data(ttl=300)

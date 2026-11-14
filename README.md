@@ -2,8 +2,8 @@
 
 **Your competitors' prices and stock, in Excel every morning at 8:00, with no manual work.**
 
-Every morning this pipeline reads the public listing pages of three Tunisian electronics shops
-(Tunisianet, Spacenet, Mytek). It cleans the data, finds the same product on each site and stores
+Every morning this pipeline reads the public listing pages of five Tunisian electronics shops
+(Tunisianet, Spacenet, Mytek, Zoom, Technopro). It cleans the data, finds the same product on each site and stores
 the full price history in PostgreSQL. Then it delivers:
 
 - an **Excel file** (`exports/prix_concurrents_YYYY-MM-DD.xlsx`) with a summary, a cross-site price
@@ -37,7 +37,9 @@ Tunisianet on 45 and Mytek on 4.
 
 Mytek coverage is limited on purpose. Its robots.txt forbids pagination, and after a handful of page
 loads it shows a bot check. The tracker then stops for the day instead of pushing past it (see
-[Scraping rules](#scraping-rules-this-project-follows)).
+[Scraping rules](#scraping-rules-this-project-follows)). Zoom and Technopro were added (Nov 2026)
+to widen coverage instead: both allow pagination, and in a first sample about a third of Zoom's
+products and over half of Technopro's already matched a product on another site.
 
 ## How it works
 
@@ -56,7 +58,7 @@ config/sites.yaml ─▶ scrapers (one thread per site) ─▶ cleaning (pandas)
 | Step | Where |
 |---|---|
 | Fetch with robots.txt, delays, retries, proxies | `tracker/fetch.py`, `tracker/browser.py` |
-| Site parsers (PrestaShop ×2, JS-rendered Mytek) | `tracker/scrapers/` |
+| Site parsers (PrestaShop ×4, JS-rendered Mytek) | `tracker/scrapers/` |
 | Price / stock / spec parsing | `tracker/parsing.py` |
 | Cleaning and dedupe | `tracker/cleaning.py` |
 | Cross-site matching | `tracker/matching.py` |

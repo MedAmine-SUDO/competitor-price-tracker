@@ -115,17 +115,18 @@ class Scraper:
 
 
 class PrestaShopScraper(Scraper):
-    """Tunisianet and Spacenet both run PrestaShop with small theme differences."""
+    """Tunisianet, Spacenet, Zoom and Technopro all run PrestaShop with small theme differences."""
 
     card_selector = "article.product-miniature, div.product-miniature"
     name_selector = ".product-title a, .product_name a"
     reference_selector = ".product-reference"
     stock_selector = "#stock_availability, .product-quantities"
+    price_selector = ".product-price-and-shipping .price, .price"
 
     def parse_card(self, card: Tag, category: str) -> Listing | None:
         pid = card.get("data-id-product")
         link = card.select_one(self.name_selector)
-        price_el = card.select_one(".product-price-and-shipping .price, .price")
+        price_el = card.select_one(self.price_selector)
         if not (pid and link and price_el):
             return None
         current = parse_price(price_el.get_text())
