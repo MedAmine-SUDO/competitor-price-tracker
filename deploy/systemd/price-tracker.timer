@@ -1,0 +1,10 @@
+[Unit]
+Description=Competitor price tracker - every day at 07:30 (Tunis)
+
+[Timer]
+OnCalendar=*-*-* 07:30:00 Africa/Tunis
+# If the machine was off or asleep at 07:30, run as soon as it is back.
+Persistent=true
+
+[Install]
+WantedBy=timers.target

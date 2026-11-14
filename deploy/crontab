@@ -1,0 +1,2 @@
+# Every day at 07:30 (Africa/Tunis): the run takes a few minutes, so Excel and alerts are ready before 8:00.
+30 7 * * * cd /app && /usr/local/bin/python -m tracker run >> /proc/1/fd/1 2>&1

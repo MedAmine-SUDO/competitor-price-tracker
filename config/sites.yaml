@@ -1,0 +1,72 @@
+# Which sites and categories to track.
+# Add a category by pasting its listing URL. `max_pages` caps how deep we paginate.
+# `min_delay_s` is the pause between two requests to the same site; if the site's
+# robots.txt asks for a longer Crawl-delay, the longer value wins.
+
+sites:
+  tunisianet:
+    name: Tunisianet
+    base_url: https://www.tunisianet.com.tn
+    engine: http          # plain HTTP + BeautifulSoup
+    min_delay_s: 3
+    categories:
+      - name: PC portable
+        url: https://www.tunisianet.com.tn/301-pc-portable-tunisie
+        max_pages: 40
+      - name: Smartphone
+        url: https://www.tunisianet.com.tn/596-smartphone-tunisie
+        max_pages: 30
+
+  spacenet:
+    name: Spacenet
+    base_url: https://spacenet.tn
+    engine: http
+    min_delay_s: 3
+    categories:
+      - name: PC portable
+        url: https://spacenet.tn/74-pc-portable-tunisie
+        max_pages: 35
+      - name: Smartphone
+        url: https://spacenet.tn/130-smartphone-tunisie
+        max_pages: 30
+
+  mytek:
+    name: Mytek
+    base_url: https://www.mytek.tn
+    engine: browser       # product grid is rendered by JavaScript -> Playwright
+    min_delay_s: 20       # faster pacing triggers the site's bot check; 20 s keeps it happy
+    # Mytek's robots.txt forbids every URL containing "?", so we never request
+    # ?p=2 etc. Only page 1 of each category is fetched.
+    paginate: false
+    # Instead, each brand sub-category (a plain path, allowed) is listed to widen coverage.
+    categories:
+      - name: PC portable
+        url: https://www.mytek.tn/informatique/ordinateurs-portables/pc-portable.html
+      - name: PC portable
+        url: https://www.mytek.tn/informatique/ordinateurs-portables/pc-portable/pc-portable-lenovo.html
+      - name: PC portable
+        url: https://www.mytek.tn/informatique/ordinateurs-portables/pc-portable/pc-portable-hp.html
+      - name: PC portable
+        url: https://www.mytek.tn/informatique/ordinateurs-portables/pc-portable/pc-portable-asus.html
+      - name: PC portable
+        url: https://www.mytek.tn/informatique/ordinateurs-portables/pc-portable/pc-portable-dell.html
+      - name: PC portable
+        url: https://www.mytek.tn/informatique/ordinateurs-portables/pc-portable/pc-portable-msi.html
+      - name: Smartphone
+        url: https://www.mytek.tn/telephonie-tunisie/smartphone-mobile-tunisie/smartphone-tunisie.html
+      - name: Smartphone
+        url: https://www.mytek.tn/telephonie-tunisie/smartphone-mobile-tunisie/smartphone-tunisie/smartphone-samsung.html
+      - name: Smartphone
+        url: https://www.mytek.tn/telephonie-tunisie/smartphone-mobile-tunisie/smartphone-tunisie/smartphone-xiaomi.html
+      - name: Smartphone
+        url: https://www.mytek.tn/telephonie-tunisie/smartphone-mobile-tunisie/smartphone-tunisie/smartphone-honor.html
+      - name: Smartphone
+        url: https://www.mytek.tn/telephonie-tunisie/smartphone-mobile-tunisie/smartphone-tunisie/smartphone-infinix.html
+      - name: Smartphone
+        url: https://www.mytek.tn/telephonie-tunisie/smartphone-mobile-tunisie/smartphone-tunisie/smartphone-oppo.html
+      - name: Smartphone
+        url: https://www.mytek.tn/telephonie-tunisie/smartphone-mobile-tunisie/smartphone-tunisie/smartphone-vivo.html
+      - name: Smartphone
+        url: https://www.mytek.tn/telephonie-tunisie/smartphone-mobile-tunisie/smartphone-tunisie/smartphone-huawei.html
+      - name: Smartphone
+        url: https://www.mytek.tn/telephonie-tunisie/smartphone-mobile-tunisie/iphone.html

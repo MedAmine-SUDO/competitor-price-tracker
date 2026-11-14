@@ -1,0 +1,17 @@
+# Daily run on a workstation or server without Docker for the app (Postgres can still be a container).
+# Installed by deploy/systemd/install.sh, which fills in @PROJECT_DIR@ and @DB_CONTAINER@.
+[Unit]
+Description=Competitor price tracker - daily run
+StartLimitIntervalSec=3h
+StartLimitBurst=3
+
+[Service]
+Type=oneshot
+WorkingDirectory=@PROJECT_DIR@
+# Make sure the database is up (no-op if it already runs), and wait until it accepts connections.
+ExecStartPre=/bin/sh -c 'docker start @DB_CONTAINER@ >/dev/null && until docker exec @DB_CONTAINER@ pg_isready -q; do sleep 1; done'
+ExecStart=@PROJECT_DIR@/.venv/bin/python -m tracker run
+# After a wake-up the network can need a minute: retry a failed run twice, 10 minutes apart.
+Restart=on-failure
+RestartSec=10min
+TimeoutStartSec=45min
