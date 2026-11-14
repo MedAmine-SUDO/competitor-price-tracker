@@ -61,3 +61,8 @@ def test_brand_aliases():
     assert guess_brand("Smartphone Redmi A7 Pro") == "xiaomi"
     assert guess_brand("Pc Portable Lenovo IdeaPad") == "lenovo"
     assert guess_brand("Câble USB-C") is None
+
+
+def test_specs_g_suffix_for_storage():
+    assert extract_specs("DELL Pro 15 Core 3 100U 32G 512G SSD")["ram_gb"] == 32
+    assert extract_specs("Smartphone Oscal Marine 3 | 8G/128G | Noir")["storage_gb"] == 128

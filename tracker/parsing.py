@@ -84,7 +84,7 @@ def extract_specs(name: str) -> dict:
     # Graphics card memory ("RTX 3050 4G", "RTX 4060 8Go") is neither RAM nor a network.
     low = re.sub(r"\b(?:rtx|gtx|rx)\s?\d{3,4}\w*(?:\s*(?:ti|super))?(?:\s*\d+\s*(?:go|gb|g)\b)?", " ", low)
     sizes = [int(x) for x in re.findall(_GB, low)]
-    sizes += [int(x) for x in re.findall(r"\b(8|12|16|24|32|64)g\b", low)]  # "8G" = 8 Go RAM
+    sizes += [int(x) for x in re.findall(r"\b(8|12|16|24|32|64|128|256|512)g\b", low)]  # "8G", "512G"
     sizes += [int(float(x.replace(",", ".")) * 1024) for x in re.findall(_TB, low)]
     # The smallest "Go" figure is RAM, the largest is storage (for laptops/phones).
     if len(sizes) >= 2:
@@ -131,6 +131,41 @@ COLOURS = {
     "purple": "purple", "gold": "gold", "dore": "gold", "orange": "orange",
     "titanium": "titanium", "titane": "titanium", "jaune": "yellow", "yellow": "yellow",
 }
+
+
+# Spec tokens that look like codes but are not model numbers: CPUs, GPUs, sizes, generations...
+_NOT_MODEL = re.compile(
+    r"\b(?:windows|win)\s?1[01]\s?(?:pro|famille|home|s)?\b"
+    r"|\b(?:rtx|gtx|rx|mx|arc)\s?\d{3,4}\w*"
+    r"|\b(?:core\s?)?(?:i[3579]|ultra\s?[3579]|core\s?[3579]|ryzen\s?[3579])[\s-]?\d{3,5}[a-z]{0,2}\b"
+    r"|\b[a-z]?\d{3,5}[uhpkgx]{1,2}\b"           # 1315U, 7520U, 13420H, 100U
+    r"|\bn\d{3,4}\b|\bcel\w*\s?n?\d{4}\b"
+    r"|\b\d+(?:[.,]\d)?\s*(?:go|gb|g|to|tb|mo|mah|hz|w|mp|pouces|\")"
+    r"|\b\d{1,2}\s?(?:e|eme|th)?\s?gen\w*"           # 13Gén, 13ème gén
+    r"|\b(?:lp)?ddr\d\w*|\bwi-?fi\s?\d\w*|\b[45]g\b|\bw1[01]p?\b")
+
+
+def model_codes(name: str, reference: str | None = None) -> frozenset[str]:
+    """Model numbers found in a name, plus the reference's part number:
+    'Dell Pro 15 Essential PV15250 / i5-1334U / 8 Go' -> {'pv15250'}.
+    A code has letters and at least 3 digits, so CPUs, sizes and 'S26' are not codes."""
+    low = _NOT_MODEL.sub(" ", strip_accents(name.lower()))
+    codes = set()
+    for tok in re.split(r"[\s/()\[\],|+]+", low):
+        tok = re.sub(r"[^a-z0-9]", "", tok)
+        if len(tok) >= 5 and re.search(r"[a-z]", tok) and len(re.findall(r"\d", tok)) >= 3:
+            codes.add(tok)
+    part = part_number(reference)
+    if part:
+        codes.add(re.sub(r"[^a-z0-9]", "", part.lower()))
+    return frozenset(codes)
+
+
+def codes_compatible(a: frozenset[str], b: frozenset[str]) -> bool:
+    """False only when both sides name a model and none agree ('x1502va' agrees with 'x1502vabq905w')."""
+    if not a or not b:
+        return True
+    return any(x.startswith(y) or y.startswith(x) for x in a for y in b)
 
 
 def part_number(ref: str | None) -> str | None:

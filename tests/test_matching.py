@@ -80,3 +80,38 @@ def test_phone_network_must_agree_in_fuzzy_pass():
         P(2, "b", "Smartphone Xiaomi Redmi 15C 4Go 128Go 5G Vert", category="Smartphone"),
     ])
     assert groups == []
+
+
+def test_different_model_numbers_in_names_never_match():
+    # Shops without reference codes (Zoom): only the name tells 15-fd0438nk from 15-fd0580nk.
+    groups = match_products([
+        P(1, "a", "PC Portable HP 15-fd0438nk - i3-1315U - 8Go - 512Go SSD"),
+        P(2, "b", "Pc Portable HP 15-fd0580nk / i3-1315U / 8 Go / 512 Go SSD"),
+        P(3, "c", "Pc Portable HP 15-fd0438nk / i3-1315U / 8 Go / 512 Go SSD"),
+    ])
+    assert pairs(groups) == [(1, 3)]
+
+
+def test_model_number_extension_still_matches():
+    groups = match_products([
+        P(1, "a", "Pc Portable Asus Vivobook 15 X1502VA / i5-13420H / 8 Go / 512 Go SSD / Silver"),
+        P(2, "b", "PC Portable Asus Vivobook 15 X1502VA-BQ905W i5-13420H 8G 512Go SSD Silver Win 11"),
+    ])
+    assert pairs(groups) == [(1, 2)]
+
+
+def test_identical_reference_beats_a_typo_in_the_name():
+    # Real case: one shop names the AMD model "PV15250" but its reference says PV15255.
+    groups = match_products([
+        P(1, "a", "Pc Portable Dell Pro 15 Essential PV15250 AMD Ryzen 5 8Go 512Go SSD", "PV15255-MDO-850-UBU"),
+        P(2, "b", "Pc Portable Dell Pro 15 Essential PV15255 / Ryzen 5 7520U / 8 Go / 512 Go SSD", "PV15255-MDO850-UBU"),
+        P(3, "c", "PC Portable Dell Pro 15 Essential PV15250 Intel Core i5 8Go 512Go SSD"),
+    ])
+    assert pairs(groups) == [(1, 2)]
+
+
+def test_model_codes_ignore_cpu_gpu_and_sizes():
+    from tracker.parsing import model_codes
+    assert model_codes("Asus TUF A16 Ryzen 7 7735HS 16Go 512Go SSD RTX 4050 6Go 144Hz") == frozenset()
+    assert model_codes("Dell Pro 15 Essential / Core 3 100U / 16 Go", "PV15250-CORE3-16G") == {"pv15250"}
+    assert model_codes("HP 15-fc0092nk / i5-1334U / 13Gén / DDR5 / 2Z8P3AA") == {"15fc0092nk", "2z8p3aa"}

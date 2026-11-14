@@ -78,7 +78,10 @@ vs "Pc Portable Chuwi CoreBook i3 10Gén 8Go 256Go SSD"), so matching runs in tw
 2. **Fuzzy name** (rapidfuzz), within the same brand and category.
 
 Both passes refuse a match when the specs that separate variants disagree (RAM, storage, CPU
-family, colour). The fuzzy pass also never pairs two different part numbers. The result: an 8/128 GB
+family, colour), or when the names carry different model numbers (`PV15250` vs `PV15255`,
+`15-fd0438nk` vs `15-fd0580nk`), which matters for shops that print no reference code. A
+model number may extend the other (`X1502VA` / `X1502VA-BQ905W`). Only an identical reference
+code overrides this, because shops do mistype names: one lists the AMD `PV15255` as "PV15250". The result: an 8/128 GB
 phone is never compared with the 8/256 GB one, and a black one is never compared with the silver one.
 
 ### Reliability

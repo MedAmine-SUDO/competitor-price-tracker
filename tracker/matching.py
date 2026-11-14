@@ -5,7 +5,9 @@ Two passes, from most to least certain:
      (exact match, or one code extending the other, e.g. MAXBOOKX15 / MAXBOOKX15N4100);
   2. fuzzy name: same brand + similar cleaned name.
 Both passes refuse a match when the specs that separate variants (RAM, storage, CPU,
-colour) disagree, and the fuzzy pass never pairs two different manufacturer part numbers. A group never holds two listings from the same site.
+colour) disagree, or when the two names carry different model numbers (PV15250 vs PV15255,
+15-fd0438nk vs 15-fd0580nk). Only an identical reference code overrides the model-number
+check, because shops do mistype names. A group never holds two listings from the same site.
 """
 from __future__ import annotations
 
@@ -14,7 +16,8 @@ from dataclasses import dataclass, field
 
 from rapidfuzz import fuzz
 
-from .parsing import extract_specs, name_tokens, normalize_reference, part_number
+from .parsing import (codes_compatible, extract_specs, model_codes, name_tokens,
+                      normalize_reference, part_number)
 
 log = logging.getLogger("tracker.matching")
 
@@ -33,6 +36,7 @@ class Item:
     part: str | None
     specs: dict
     tokens: str
+    codes: frozenset
 
 
 @dataclass
@@ -59,6 +63,7 @@ def _to_items(products: list[dict]) -> list[Item]:
             ref=normalize_reference(p.get("reference")), part=part_number(p.get("reference")),
             specs=extract_specs(p["name"]),
             tokens=name_tokens(p["name"]),
+            codes=model_codes(p["name"], p.get("reference")),
         )
         for p in products
     ]
@@ -69,7 +74,7 @@ def match_products(products: list[dict]) -> list[Group]:
     items = _to_items(products)
     group_of: dict[int, Group] = {}
 
-    def merge(a: Item, b: Item, method: str) -> bool:
+    def merge(a: Item, b: Item, method: str, check_codes: bool = True) -> bool:
         ga, gb = group_of.get(a.id), group_of.get(b.id)
         if ga is not None and ga is gb:
             return False
@@ -80,6 +85,8 @@ def match_products(products: list[dict]) -> list[Group]:
         members_a = ga.members if ga else [a]
         members_b = gb.members if gb else [b]
         if not all(specs_compatible(x.specs, y.specs) for x in members_a for y in members_b):
+            return False
+        if check_codes and not all(codes_compatible(x.codes, y.codes) for x in members_a for y in members_b):
             return False
         g = Group(members=members_a + members_b,
                   method="fuzzy" if "fuzzy" in (method, getattr(ga, "method", ""), getattr(gb, "method", "")) else method)
@@ -94,7 +101,7 @@ def match_products(products: list[dict]) -> list[Group]:
             by_ref.setdefault(it.ref, []).append(it)
     for same in by_ref.values():
         for other in same[1:]:
-            merge(same[0], other, "reference")
+            merge(same[0], other, "reference", check_codes=False)
 
     # Pass 1b: one reference is a prefix of another, and the names agree.
     refs = sorted((it for it in items if it.ref and len(it.ref) >= 7), key=lambda i: i.ref)
