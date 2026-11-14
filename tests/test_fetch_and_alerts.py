@@ -140,3 +140,9 @@ def test_email_report(monkeypatch, tmp_path):
     assert msg["To"] == "a@test, b@test" and msg["Subject"] == "Sujet"
     assert msg.get_body(("plain",)).get_content().strip() == "Relevé OK > 10%\nvoir: https://x/1"
     assert [a.get_filename() for a in msg.iter_attachments()] == ["prix.xlsx"]
+
+
+def test_bot_check_is_not_reported_as_html_change():
+    blocked = {"a": {"products": 40, "errors": ["www.a.tn served a bot check page; stopping this site for today"]}}
+    status, warnings = decide_status(blocked, {"a": 100})
+    assert status == "degraded" and "anti-bot" in warnings[0] and "structure" not in warnings[0]

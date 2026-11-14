@@ -70,8 +70,9 @@ def decide_status(site_reports: dict, expected: dict[str, float]) -> tuple[str, 
         if r["products"] == 0:
             warnings.append(f"{s}: aucun produit récupéré")
         elif s in expected and r["products"] < expected[s] * settings.volume_drop_warn:
-            warnings.append(f"{s}: {r['products']} produits contre {expected[s]:.0f} en moyenne "
-                            f"(structure du site modifiée ?)")
+            bot_check = any("bot check" in e for e in r["errors"])
+            reason = "arrêté par une vérification anti-bot" if bot_check else "structure du site modifiée ?"
+            warnings.append(f"{s}: {r['products']} produits contre {expected[s]:.0f} en moyenne ({reason})")
         if r["errors"]:
             warnings.append(f"{s}: {len(r['errors'])} erreur(s) de récupération")
     if len(empty) == len(site_reports):

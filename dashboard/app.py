@@ -84,7 +84,7 @@ with tab_cmp:
         fig = px.bar(wins, x="produits", y="Site", orientation="h", color="Site", color_discrete_map=COLORS,
                      text="produits", title="Qui est le moins cher, sur les produits communs")
         fig.update_traces(textposition="outside", cliponaxis=False)
-        st.plotly_chart(fig.update_layout(showlegend=False, height=230, yaxis_title="", xaxis_title=""),
+        st.plotly_chart(fig.update_layout(showlegend=False, height=300, yaxis_title="", xaxis_title=""),
                         width="stretch")
         table = table.sort_values("Écart %", ascending=False)
         prices = table[cols]
@@ -136,11 +136,15 @@ with tab_runs:
                          "Relances": s.get("retries", 0), "Erreurs": s.get("errors", 0)})
     per_site = pd.DataFrame(rows)
     if len(per_site):
-        fig = px.bar(per_site.sort_values("date"), x="date", y="Produits", color="Site", barmode="group",
-                     color_discrete_map=COLORS, title="Produits récupérés par relevé", labels={"date": ""})
-        st.plotly_chart(fig.update_layout(height=320, legend_title_text=""), width="stretch")
+        per_site = per_site.sort_values("date")
+        fig = px.bar(per_site, x="Relevé", y="Produits", color="Site", barmode="group",
+                     color_discrete_map=COLORS, title="Produits récupérés par relevé", labels={"Relevé": ""})
+        st.plotly_chart(fig.update_layout(height=320, legend_title_text="").update_xaxes(type="category"),
+                        width="stretch")
     st.dataframe(
-        runs.assign(Durée=runs["report"].map(lambda r: f"{r.get('duration_s', 0) / 60:.1f} min"),
+        runs.assign(started_at=pd.to_datetime(runs["started_at"], utc=True).dt.tz_convert("Africa/Tunis")
+                    .dt.strftime("%d/%m/%Y %H:%M"),
+                    Durée=runs["report"].map(lambda r: f"{r.get('duration_s', 0) / 60:.1f} min"),
                     Alertes=runs["report"].map(lambda r: r.get("price_drops", 0)))
             [["id", "started_at", "status", "products_seen", "pages_fetched", "errors", "Durée", "Alertes"]]
             .rename(columns={"id": "Relevé", "started_at": "Début", "status": "Statut",

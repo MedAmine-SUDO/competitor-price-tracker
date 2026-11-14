@@ -13,6 +13,15 @@ the full price history in PostgreSQL. Then it delivers:
 - a daily **"run OK" report** by email, with the Excel file attached (products per site, pages,
   retries, errors, warnings). Telegram can be added as a second channel.
 
+![Dashboard: cross-site comparison](docs/img/dashboard-comparison.png)
+
+| Price-drop alert email (real run, 14 Nov 2026) | Price history of one product across sites |
+|---|---|
+| ![Alert email](docs/img/email-report.png) | ![Price history](docs/img/dashboard-history.png) ![Run reliability](docs/img/dashboard-runs.png) |
+
+The 14 Nov run caught 7 drops above 10%. One example: Spacenet cut the Galaxy S26 Ultra from 5,999 to
+5,399 DT and became cheaper than Tunisianet. The alert says so.
+
 ### Measured on a real run (10 Nov 2026, laptops + smartphones)
 
 | | |
