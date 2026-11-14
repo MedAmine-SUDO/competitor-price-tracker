@@ -88,7 +88,7 @@ Price drops above 10% as soon as they're found, plus a daily "run OK" report wit
 attached. Telegram is available as a second channel.
 
 ### 📈 Dashboard
-Price history per product across shops, who's cheapest, recent drops and run reliability.
+Price history per product across shops, who's cheapest, recent drops and run reliability, in French or English.
 [Try the demo →](https://medamine-sudo.github.io/competitor-price-tracker/)
 
 ### 🛟 Built to run unattended
@@ -191,8 +191,9 @@ overrides the model-number check, because shops do mistype names: one lists the 
 The [demo](https://medamine-sudo.github.io/competitor-price-tracker/) is the real `dashboard/app.py`,
 running entirely in your browser with [stlite](https://github.com/whitphx/stlite) (Streamlit on
 WebAssembly), on GitHub Pages. It reads a **generated dataset** with five fictional shops
-("Boutique A–E") and three weeks of runs, so no scraped data is republished. The first load takes
-about 30 seconds while Python starts in the browser.
+("Boutique A–E") and three weeks of runs, so no scraped data is republished. Switch between
+English and French with the **FR / EN** button. The first load takes about 25 seconds while Python
+starts in the browser (charts use Altair, which ships with Streamlit, to keep that short).
 
 <details>
 <summary><b>How the demo is built</b></summary>
@@ -293,7 +294,7 @@ Check the timer with `systemctl --user list-timers` and its logs with `journalct
 | Data | pandas · PostgreSQL 16 · psycopg 3 |
 | Matching | rapidfuzz + reference, spec and model-number rules |
 | Outputs | openpyxl (Excel) · SMTP email · Telegram Bot API |
-| Dashboard | Streamlit · Plotly; public demo on stlite + GitHub Pages |
+| Dashboard | Streamlit · Altair, in French or English; public demo on stlite + GitHub Pages |
 | Scheduling | systemd timer · cron in Docker · optional Airflow DAG |
 | Quality | pytest (48 tests) · GitHub Actions |
 
