@@ -1,0 +1,207 @@
+id,site,name,brand,category,url,group_id
+1,boutique_a,Pc Portable Lenovo IdeaPad Slim 3 15IRH8 / i5-13420H / 8 Go / 512 Go SSD,lenovo,PC portable,https://boutique-a.example/produit/1,1
+2,boutique_b,PC Portable Lenovo IdeaPad Slim 3 15IRH8 i5-13420H 8Go 512Go SSD,lenovo,PC portable,https://boutique-b.example/produit/2,1
+3,boutique_d,PC Portable Lenovo IdeaPad Slim 3 15IRH8 – i5-13420H – 8 Go – 512 Go SSD,lenovo,PC portable,https://boutique-d.example/produit/3,1
+4,boutique_a,Pc Portable Lenovo IdeaPad Slim 3 15IRH8 / i5-13420H / 16 Go / 512 Go SSD,lenovo,PC portable,https://boutique-a.example/produit/4,2
+5,boutique_b,PC Portable Lenovo IdeaPad Slim 3 15IRH8 i5-13420H 16Go 512Go SSD,lenovo,PC portable,https://boutique-b.example/produit/5,2
+6,boutique_e,Pc Portable Lenovo IdeaPad Slim 3 15IRH8 16Go 512Go SSD,lenovo,PC portable,https://boutique-e.example/produit/6,2
+7,boutique_b,PC Portable Lenovo IdeaPad 1 15AMN7 Ryzen 5 7520U 8Go 256Go SSD,lenovo,PC portable,https://boutique-b.example/produit/7,3
+8,boutique_c,PC Portable LENOVO IdeaPad 1 15AMN7 Ryzen 5 7520U 8G 256G SSD,lenovo,PC portable,https://boutique-c.example/produit/8,3
+9,boutique_d,PC Portable Lenovo IdeaPad 1 15AMN7 – Ryzen 5 7520U – 8 Go – 256 Go SSD,lenovo,PC portable,https://boutique-d.example/produit/9,3
+10,boutique_e,Pc Portable Lenovo IdeaPad 1 15AMN7 8Go 256Go SSD,lenovo,PC portable,https://boutique-e.example/produit/10,3
+11,boutique_a,Pc Portable Lenovo IdeaPad 1 15AMN7 / Ryzen 5 7520U / 8 Go / 512 Go SSD,lenovo,PC portable,https://boutique-a.example/produit/11,4
+12,boutique_b,PC Portable Lenovo IdeaPad 1 15AMN7 Ryzen 5 7520U 8Go 512Go SSD,lenovo,PC portable,https://boutique-b.example/produit/12,4
+13,boutique_d,PC Portable Lenovo IdeaPad 1 15AMN7 – Ryzen 5 7520U – 8 Go – 512 Go SSD,lenovo,PC portable,https://boutique-d.example/produit/13,4
+14,boutique_e,Pc Portable Lenovo IdeaPad 1 15AMN7 8Go 512Go SSD,lenovo,PC portable,https://boutique-e.example/produit/14,4
+15,boutique_b,PC Portable Lenovo ThinkBook 16 G9 21US002XFE Core 5 210H 16Go 512Go SSD,lenovo,PC portable,https://boutique-b.example/produit/15,5
+16,boutique_c,PC Portable LENOVO ThinkBook 16 G9 21US002XFE Core 5 210H 16G 512G SSD,lenovo,PC portable,https://boutique-c.example/produit/16,5
+17,boutique_e,Pc Portable Lenovo ThinkBook 16 G9 21US002XFE 16Go 512Go SSD,lenovo,PC portable,https://boutique-e.example/produit/17,5
+18,boutique_a,Pc Portable Lenovo LOQ 15IRX10 / i7-13650HX / 16 Go / 512 Go SSD,lenovo,PC portable,https://boutique-a.example/produit/18,6
+19,boutique_c,PC Portable LENOVO LOQ 15IRX10 i7-13650HX 16G 512G SSD,lenovo,PC portable,https://boutique-c.example/produit/19,6
+20,boutique_a,Pc Portable HP 15 fd0438nk / i3-1315U / 8 Go / 512 Go SSD,hp,PC portable,https://boutique-a.example/produit/20,7
+21,boutique_b,PC Portable HP 15 fd0438nk i3-1315U 8Go 512Go SSD,hp,PC portable,https://boutique-b.example/produit/21,7
+22,boutique_a,Pc Portable HP 15 fd0438nk / i3-1315U / 16 Go / 512 Go SSD,hp,PC portable,https://boutique-a.example/produit/22,8
+23,boutique_b,PC Portable HP 15 fd0438nk i3-1315U 16Go 512Go SSD,hp,PC portable,https://boutique-b.example/produit/23,8
+24,boutique_d,PC Portable HP 15 fd0438nk – i3-1315U – 16 Go – 512 Go SSD,hp,PC portable,https://boutique-d.example/produit/24,8
+25,boutique_e,Pc Portable HP 15 fd0438nk 16Go 512Go SSD,hp,PC portable,https://boutique-e.example/produit/25,8
+26,boutique_a,Pc Portable HP 15 fd0580nk / i5-1334U / 8 Go / 512 Go SSD,hp,PC portable,https://boutique-a.example/produit/26,9
+27,boutique_b,PC Portable HP 15 fd0580nk i5-1334U 8Go 512Go SSD,hp,PC portable,https://boutique-b.example/produit/27,9
+28,boutique_c,PC Portable HP Victus 16 r0001nk i5-13500H 16G 512G SSD,hp,PC portable,https://boutique-c.example/produit/28,10
+29,boutique_d,PC Portable HP Victus 16 r0001nk – i5-13500H – 16 Go – 512 Go SSD,hp,PC portable,https://boutique-d.example/produit/29,10
+30,boutique_e,Pc Portable HP Victus 16 r0001nk 16Go 512Go SSD,hp,PC portable,https://boutique-e.example/produit/30,10
+31,boutique_a,Pc Portable HP ProBook 450 G10 85B03EA / i7-1355U / 16 Go / 512 Go SSD,hp,PC portable,https://boutique-a.example/produit/31,11
+32,boutique_b,PC Portable HP ProBook 450 G10 85B03EA i7-1355U 16Go 512Go SSD,hp,PC portable,https://boutique-b.example/produit/32,11
+33,boutique_b,PC Portable Asus Vivobook 15 X1502VA i5-13420H 8Go 512Go SSD,asus,PC portable,https://boutique-b.example/produit/33,12
+34,boutique_e,Pc Portable Asus Vivobook 15 X1502VA 8Go 512Go SSD,asus,PC portable,https://boutique-e.example/produit/34,12
+35,boutique_a,Pc Portable Asus Vivobook 15 X1502VA / i5-13420H / 16 Go / 512 Go SSD,asus,PC portable,https://boutique-a.example/produit/35,13
+36,boutique_b,PC Portable Asus Vivobook 15 X1502VA i5-13420H 16Go 512Go SSD,asus,PC portable,https://boutique-b.example/produit/36,13
+37,boutique_c,PC Portable ASUS Vivobook 15 X1502VA i5-13420H 16G 512G SSD,asus,PC portable,https://boutique-c.example/produit/37,13
+38,boutique_d,PC Portable Asus Vivobook 15 X1502VA – i5-13420H – 16 Go – 512 Go SSD,asus,PC portable,https://boutique-d.example/produit/38,13
+39,boutique_e,Pc Portable Asus Vivobook 15 X1502VA 16Go 512Go SSD,asus,PC portable,https://boutique-e.example/produit/39,13
+40,boutique_a,Pc Portable Asus Vivobook 16 X1605VA / Core 9 270H / 16 Go / 1 To SSD,asus,PC portable,https://boutique-a.example/produit/40,14
+41,boutique_b,PC Portable Asus Vivobook 16 X1605VA Core 9 270H 16Go 1To SSD,asus,PC portable,https://boutique-b.example/produit/41,14
+42,boutique_c,PC Portable ASUS Vivobook 16 X1605VA Core 9 270H 16G 1 To SSD,asus,PC portable,https://boutique-c.example/produit/42,14
+43,boutique_d,PC Portable Asus Vivobook 16 X1605VA – Core 9 270H – 16 Go – 1 To SSD,asus,PC portable,https://boutique-d.example/produit/43,14
+44,boutique_e,Pc Portable Asus Vivobook 16 X1605VA 16Go 1To SSD,asus,PC portable,https://boutique-e.example/produit/44,14
+45,boutique_a,Pc Portable Asus TUF Gaming A16 FA607NU / Ryzen 7 7435HS / 16 Go / 512 Go SSD,asus,PC portable,https://boutique-a.example/produit/45,15
+46,boutique_b,PC Portable Asus TUF Gaming A16 FA607NU Ryzen 7 7435HS 16Go 512Go SSD,asus,PC portable,https://boutique-b.example/produit/46,15
+47,boutique_c,PC Portable ASUS TUF Gaming A16 FA607NU Ryzen 7 7435HS 16G 512G SSD,asus,PC portable,https://boutique-c.example/produit/47,15
+48,boutique_a,Pc Portable Asus Zenbook 14 UX3405MA / Ultra 7 155H / 16 Go / 1 To SSD,asus,PC portable,https://boutique-a.example/produit/48,16
+49,boutique_b,PC Portable Asus Zenbook 14 UX3405MA Ultra 7 155H 16Go 1To SSD,asus,PC portable,https://boutique-b.example/produit/49,16
+50,boutique_c,PC Portable ASUS Zenbook 14 UX3405MA Ultra 7 155H 16G 1 To SSD,asus,PC portable,https://boutique-c.example/produit/50,16
+51,boutique_e,Pc Portable Dell Pro 15 Essential PV15250 8Go 512Go SSD,dell,PC portable,https://boutique-e.example/produit/51,
+52,boutique_a,Pc Portable Dell Pro 15 Essential PV15250 / i5-1334U / 16 Go / 512 Go SSD,dell,PC portable,https://boutique-a.example/produit/52,17
+53,boutique_b,PC Portable Dell Pro 15 Essential PV15250 i5-1334U 16Go 512Go SSD,dell,PC portable,https://boutique-b.example/produit/53,17
+54,boutique_c,PC Portable DELL Pro 15 Essential PV15250 i5-1334U 16G 512G SSD,dell,PC portable,https://boutique-c.example/produit/54,17
+55,boutique_d,PC Portable Dell Pro 15 Essential PV15250 – i5-1334U – 16 Go – 512 Go SSD,dell,PC portable,https://boutique-d.example/produit/55,17
+56,boutique_a,Pc Portable Dell Pro 15 Essential PV15255 / Ryzen 5 7520U / 8 Go / 512 Go SSD,dell,PC portable,https://boutique-a.example/produit/56,18
+57,boutique_b,PC Portable Dell Pro 15 Essential PV15255 Ryzen 5 7520U 8Go 512Go SSD,dell,PC portable,https://boutique-b.example/produit/57,18
+58,boutique_c,PC Portable DELL Pro 15 Essential PV15255 Ryzen 5 7520U 8G 512G SSD,dell,PC portable,https://boutique-c.example/produit/58,18
+59,boutique_a,Pc Portable Dell Vostro 3530 N1604PVNB3530 / i5-1335U / 8 Go / 512 Go SSD,dell,PC portable,https://boutique-a.example/produit/59,19
+60,boutique_b,PC Portable Dell Vostro 3530 N1604PVNB3530 i5-1335U 8Go 512Go SSD,dell,PC portable,https://boutique-b.example/produit/60,19
+61,boutique_d,PC Portable Dell Vostro 3530 N1604PVNB3530 – i5-1335U – 8 Go – 512 Go SSD,dell,PC portable,https://boutique-d.example/produit/61,19
+62,boutique_b,PC Portable Acer Aspire 3 A315-59 i3-1215U 8Go 256Go SSD,acer,PC portable,https://boutique-b.example/produit/62,20
+63,boutique_c,PC Portable ACER Aspire 3 A315-59 i3-1215U 8G 256G SSD,acer,PC portable,https://boutique-c.example/produit/63,20
+64,boutique_d,PC Portable Acer Aspire 3 A315-59 – i3-1215U – 8 Go – 256 Go SSD,acer,PC portable,https://boutique-d.example/produit/64,20
+65,boutique_e,Pc Portable Acer Aspire 3 A315-59 8Go 256Go SSD,acer,PC portable,https://boutique-e.example/produit/65,20
+66,boutique_a,Pc Portable Acer Aspire 3 A315-59 / i3-1215U / 8 Go / 512 Go SSD,acer,PC portable,https://boutique-a.example/produit/66,21
+67,boutique_d,PC Portable Acer Aspire 3 A315-59 – i3-1215U – 8 Go – 512 Go SSD,acer,PC portable,https://boutique-d.example/produit/67,21
+68,boutique_a,Pc Portable Acer Nitro V 15 ANV15-51 / i5-13420H / 16 Go / 512 Go SSD,acer,PC portable,https://boutique-a.example/produit/68,22
+69,boutique_b,PC Portable Acer Nitro V 15 ANV15-51 i5-13420H 16Go 512Go SSD,acer,PC portable,https://boutique-b.example/produit/69,22
+70,boutique_c,PC Portable ACER Nitro V 15 ANV15-51 i5-13420H 16G 512G SSD,acer,PC portable,https://boutique-c.example/produit/70,22
+71,boutique_e,Pc Portable Acer Nitro V 15 ANV15-51 16Go 512Go SSD,acer,PC portable,https://boutique-e.example/produit/71,22
+72,boutique_b,PC Portable MSI Thin 15 B13UC i7-13620H 16Go 512Go SSD,msi,PC portable,https://boutique-b.example/produit/72,23
+73,boutique_d,PC Portable MSI Thin 15 B13UC – i7-13620H – 16 Go – 512 Go SSD,msi,PC portable,https://boutique-d.example/produit/73,23
+74,boutique_e,Pc Portable MSI Thin 15 B13UC 16Go 512Go SSD,msi,PC portable,https://boutique-e.example/produit/74,23
+75,boutique_a,Pc Portable MSI Thin 15 B13UC / i7-13620H / 32 Go / 512 Go SSD,msi,PC portable,https://boutique-a.example/produit/75,24
+76,boutique_b,PC Portable MSI Thin 15 B13UC i7-13620H 32Go 512Go SSD,msi,PC portable,https://boutique-b.example/produit/76,24
+77,boutique_d,PC Portable MSI Thin 15 B13UC – i7-13620H – 32 Go – 512 Go SSD,msi,PC portable,https://boutique-d.example/produit/77,24
+78,boutique_a,Pc Portable MSI Modern 15 B13M / i5-1335U / 8 Go / 512 Go SSD,msi,PC portable,https://boutique-a.example/produit/78,25
+79,boutique_b,PC Portable MSI Modern 15 B13M i5-1335U 8Go 512Go SSD,msi,PC portable,https://boutique-b.example/produit/79,25
+80,boutique_a,Pc Portable Apple MacBook Air 13 MC6T4FN / M4 / 16 Go / 256 Go SSD,apple,PC portable,https://boutique-a.example/produit/80,26
+81,boutique_b,PC Portable Apple MacBook Air 13 MC6T4FN M4 16Go 256Go SSD,apple,PC portable,https://boutique-b.example/produit/81,26
+82,boutique_a,Smartphone Samsung Galaxy A16 / 4 Go / 128 Go / Noir,samsung,Smartphone,https://boutique-a.example/produit/82,27
+83,boutique_b,Smartphone Samsung Galaxy A16 4Go 128Go Noir,samsung,Smartphone,https://boutique-b.example/produit/83,27
+84,boutique_c,Smartphone SAMSUNG Galaxy A16 4G/128G - Noir,samsung,Smartphone,https://boutique-c.example/produit/84,27
+85,boutique_d,Smartphone Samsung Galaxy A16 – 4 Go – 128 Go – Noir,samsung,Smartphone,https://boutique-d.example/produit/85,27
+86,boutique_e,Smartphone Samsung Galaxy A16 4Go 128Go Noir,samsung,Smartphone,https://boutique-e.example/produit/86,27
+87,boutique_c,Smartphone SAMSUNG Galaxy A16 4G/128G - Bleu,samsung,Smartphone,https://boutique-c.example/produit/87,28
+88,boutique_e,Smartphone Samsung Galaxy A16 4Go 128Go Bleu,samsung,Smartphone,https://boutique-e.example/produit/88,28
+89,boutique_a,Smartphone Samsung Galaxy A16 / 6 Go / 128 Go / Noir,samsung,Smartphone,https://boutique-a.example/produit/89,29
+90,boutique_b,Smartphone Samsung Galaxy A16 6Go 128Go Noir,samsung,Smartphone,https://boutique-b.example/produit/90,29
+91,boutique_c,Smartphone SAMSUNG Galaxy A16 6G/128G - Noir,samsung,Smartphone,https://boutique-c.example/produit/91,29
+92,boutique_d,Smartphone Samsung Galaxy A16 – 6 Go – 128 Go – Noir,samsung,Smartphone,https://boutique-d.example/produit/92,29
+93,boutique_e,Smartphone Samsung Galaxy A16 6Go 128Go Noir,samsung,Smartphone,https://boutique-e.example/produit/93,29
+94,boutique_a,Smartphone Samsung Galaxy A16 / 6 Go / 128 Go / Bleu,samsung,Smartphone,https://boutique-a.example/produit/94,30
+95,boutique_e,Smartphone Samsung Galaxy A16 6Go 128Go Bleu,samsung,Smartphone,https://boutique-e.example/produit/95,30
+96,boutique_a,Smartphone Samsung Galaxy A26 5G / 6 Go / 128 Go / Noir,samsung,Smartphone,https://boutique-a.example/produit/96,31
+97,boutique_b,Smartphone Samsung Galaxy A26 5G 6Go 128Go Noir,samsung,Smartphone,https://boutique-b.example/produit/97,31
+98,boutique_e,Smartphone Samsung Galaxy A26 5G 6Go 128Go Noir,samsung,Smartphone,https://boutique-e.example/produit/98,31
+99,boutique_a,Smartphone Samsung Galaxy A26 5G / 6 Go / 128 Go / Blanc,samsung,Smartphone,https://boutique-a.example/produit/99,32
+100,boutique_b,Smartphone Samsung Galaxy A26 5G 6Go 128Go Blanc,samsung,Smartphone,https://boutique-b.example/produit/100,32
+101,boutique_c,Smartphone SAMSUNG Galaxy A26 5G 6G/128G - Blanc,samsung,Smartphone,https://boutique-c.example/produit/101,32
+102,boutique_a,Smartphone Samsung Galaxy A26 5G / 8 Go / 256 Go / Noir,samsung,Smartphone,https://boutique-a.example/produit/102,33
+103,boutique_b,Smartphone Samsung Galaxy A26 5G 8Go 256Go Noir,samsung,Smartphone,https://boutique-b.example/produit/103,33
+104,boutique_d,Smartphone Samsung Galaxy A26 5G – 8 Go – 256 Go – Noir,samsung,Smartphone,https://boutique-d.example/produit/104,33
+105,boutique_e,Smartphone Samsung Galaxy A26 5G 8Go 256Go Noir,samsung,Smartphone,https://boutique-e.example/produit/105,33
+106,boutique_a,Smartphone Samsung Galaxy A26 5G / 8 Go / 256 Go / Blanc,samsung,Smartphone,https://boutique-a.example/produit/106,34
+107,boutique_b,Smartphone Samsung Galaxy A26 5G 8Go 256Go Blanc,samsung,Smartphone,https://boutique-b.example/produit/107,34
+108,boutique_c,Smartphone SAMSUNG Galaxy A26 5G 8G/256G - Blanc,samsung,Smartphone,https://boutique-c.example/produit/108,34
+109,boutique_e,Smartphone Samsung Galaxy A26 5G 8Go 256Go Blanc,samsung,Smartphone,https://boutique-e.example/produit/109,34
+110,boutique_a,Smartphone Samsung Galaxy A56 5G / 8 Go / 256 Go / Gris,samsung,Smartphone,https://boutique-a.example/produit/110,35
+111,boutique_b,Smartphone Samsung Galaxy A56 5G 8Go 256Go Gris,samsung,Smartphone,https://boutique-b.example/produit/111,35
+112,boutique_d,Smartphone Samsung Galaxy A56 5G – 8 Go – 256 Go – Gris,samsung,Smartphone,https://boutique-d.example/produit/112,35
+113,boutique_a,Smartphone Samsung Galaxy A56 5G / 8 Go / 256 Go / Rose,samsung,Smartphone,https://boutique-a.example/produit/113,36
+114,boutique_b,Smartphone Samsung Galaxy A56 5G 8Go 256Go Rose,samsung,Smartphone,https://boutique-b.example/produit/114,36
+115,boutique_e,Smartphone Samsung Galaxy A56 5G 8Go 256Go Rose,samsung,Smartphone,https://boutique-e.example/produit/115,36
+116,boutique_a,Smartphone Samsung Galaxy S26 Ultra 5G / 12 Go / 256 Go / Noir,samsung,Smartphone,https://boutique-a.example/produit/116,37
+117,boutique_b,Smartphone Samsung Galaxy S26 Ultra 5G 12Go 256Go Noir,samsung,Smartphone,https://boutique-b.example/produit/117,37
+118,boutique_c,Smartphone SAMSUNG Galaxy S26 Ultra 5G 12G/256G - Noir,samsung,Smartphone,https://boutique-c.example/produit/118,37
+119,boutique_e,Smartphone Samsung Galaxy S26 Ultra 5G 12Go 256Go Noir,samsung,Smartphone,https://boutique-e.example/produit/119,37
+120,boutique_a,Smartphone Samsung Galaxy S26 Ultra 5G / 12 Go / 256 Go / Gris,samsung,Smartphone,https://boutique-a.example/produit/120,38
+121,boutique_b,Smartphone Samsung Galaxy S26 Ultra 5G 12Go 256Go Gris,samsung,Smartphone,https://boutique-b.example/produit/121,38
+122,boutique_c,Smartphone SAMSUNG Galaxy S26 Ultra 5G 12G/256G - Gris,samsung,Smartphone,https://boutique-c.example/produit/122,38
+123,boutique_d,Smartphone Samsung Galaxy S26 Ultra 5G – 12 Go – 256 Go – Gris,samsung,Smartphone,https://boutique-d.example/produit/123,38
+124,boutique_e,Smartphone Samsung Galaxy S26 Ultra 5G 12Go 256Go Gris,samsung,Smartphone,https://boutique-e.example/produit/124,38
+125,boutique_a,Smartphone Xiaomi Redmi 15C / 4 Go / 128 Go / Noir,xiaomi,Smartphone,https://boutique-a.example/produit/125,39
+126,boutique_b,Smartphone Xiaomi Redmi 15C 4Go 128Go Noir,xiaomi,Smartphone,https://boutique-b.example/produit/126,39
+127,boutique_d,Smartphone Xiaomi Redmi 15C – 4 Go – 128 Go – Noir,xiaomi,Smartphone,https://boutique-d.example/produit/127,39
+128,boutique_a,Smartphone Xiaomi Redmi 15C / 4 Go / 128 Go / Vert,xiaomi,Smartphone,https://boutique-a.example/produit/128,40
+129,boutique_b,Smartphone Xiaomi Redmi 15C 4Go 128Go Vert,xiaomi,Smartphone,https://boutique-b.example/produit/129,40
+130,boutique_c,Smartphone XIAOMI Redmi 15C 4G/128G - Vert,xiaomi,Smartphone,https://boutique-c.example/produit/130,40
+131,boutique_d,Smartphone Xiaomi Redmi 15C – 4 Go – 128 Go – Vert,xiaomi,Smartphone,https://boutique-d.example/produit/131,40
+132,boutique_b,Smartphone Xiaomi Redmi 15C 8Go 256Go Noir,xiaomi,Smartphone,https://boutique-b.example/produit/132,41
+133,boutique_e,Smartphone Xiaomi Redmi 15C 8Go 256Go Noir,xiaomi,Smartphone,https://boutique-e.example/produit/133,41
+134,boutique_a,Smartphone Xiaomi Redmi 15C / 8 Go / 256 Go / Vert,xiaomi,Smartphone,https://boutique-a.example/produit/134,42
+135,boutique_b,Smartphone Xiaomi Redmi 15C 8Go 256Go Vert,xiaomi,Smartphone,https://boutique-b.example/produit/135,42
+136,boutique_a,Smartphone Xiaomi Redmi Note 15 / 8 Go / 256 Go / Noir,xiaomi,Smartphone,https://boutique-a.example/produit/136,43
+137,boutique_b,Smartphone Xiaomi Redmi Note 15 8Go 256Go Noir,xiaomi,Smartphone,https://boutique-b.example/produit/137,43
+138,boutique_c,Smartphone XIAOMI Redmi Note 15 8G/256G - Noir,xiaomi,Smartphone,https://boutique-c.example/produit/138,43
+139,boutique_d,Smartphone Xiaomi Redmi Note 15 – 8 Go – 256 Go – Noir,xiaomi,Smartphone,https://boutique-d.example/produit/139,43
+140,boutique_e,Smartphone Xiaomi Redmi Note 15 8Go 256Go Noir,xiaomi,Smartphone,https://boutique-e.example/produit/140,43
+141,boutique_a,Smartphone Xiaomi Redmi Note 15 / 8 Go / 256 Go / Bleu,xiaomi,Smartphone,https://boutique-a.example/produit/141,44
+142,boutique_b,Smartphone Xiaomi Redmi Note 15 8Go 256Go Bleu,xiaomi,Smartphone,https://boutique-b.example/produit/142,44
+143,boutique_d,Smartphone Xiaomi Redmi Note 15 – 8 Go – 256 Go – Bleu,xiaomi,Smartphone,https://boutique-d.example/produit/143,44
+144,boutique_e,Smartphone Xiaomi Redmi Note 15 8Go 256Go Bleu,xiaomi,Smartphone,https://boutique-e.example/produit/144,44
+145,boutique_a,Smartphone Xiaomi Redmi Note 15 Pro 5G / 8 Go / 256 Go / Noir,xiaomi,Smartphone,https://boutique-a.example/produit/145,45
+146,boutique_b,Smartphone Xiaomi Redmi Note 15 Pro 5G 8Go 256Go Noir,xiaomi,Smartphone,https://boutique-b.example/produit/146,45
+147,boutique_d,Smartphone Xiaomi Redmi Note 15 Pro 5G – 8 Go – 256 Go – Noir,xiaomi,Smartphone,https://boutique-d.example/produit/147,45
+148,boutique_e,Smartphone Xiaomi Redmi Note 15 Pro 5G 8Go 256Go Noir,xiaomi,Smartphone,https://boutique-e.example/produit/148,45
+149,boutique_a,Smartphone Xiaomi Redmi Note 15 Pro 5G / 8 Go / 256 Go / Violet,xiaomi,Smartphone,https://boutique-a.example/produit/149,46
+150,boutique_b,Smartphone Xiaomi Redmi Note 15 Pro 5G 8Go 256Go Violet,xiaomi,Smartphone,https://boutique-b.example/produit/150,46
+151,boutique_d,Smartphone Xiaomi Redmi Note 15 Pro 5G – 8 Go – 256 Go – Violet,xiaomi,Smartphone,https://boutique-d.example/produit/151,46
+152,boutique_a,Smartphone Honor X7c / 8 Go / 256 Go / Noir,honor,Smartphone,https://boutique-a.example/produit/152,47
+153,boutique_b,Smartphone Honor X7c 8Go 256Go Noir,honor,Smartphone,https://boutique-b.example/produit/153,47
+154,boutique_e,Smartphone Honor X7c 8Go 256Go Noir,honor,Smartphone,https://boutique-e.example/produit/154,47
+155,boutique_a,Smartphone Honor X7c / 8 Go / 256 Go / Vert,honor,Smartphone,https://boutique-a.example/produit/155,48
+156,boutique_c,Smartphone HONOR X7c 8G/256G - Vert,honor,Smartphone,https://boutique-c.example/produit/156,48
+157,boutique_a,Smartphone Honor X9d 5G / 12 Go / 256 Go / Noir,honor,Smartphone,https://boutique-a.example/produit/157,49
+158,boutique_b,Smartphone Honor X9d 5G 12Go 256Go Noir,honor,Smartphone,https://boutique-b.example/produit/158,49
+159,boutique_d,Smartphone Honor X9d 5G – 12 Go – 256 Go – Noir,honor,Smartphone,https://boutique-d.example/produit/159,49
+160,boutique_e,Smartphone Honor X9d 5G 12Go 256Go Noir,honor,Smartphone,https://boutique-e.example/produit/160,49
+161,boutique_a,Smartphone Honor X9d 5G / 12 Go / 256 Go / Orange,honor,Smartphone,https://boutique-a.example/produit/161,50
+162,boutique_e,Smartphone Honor X9d 5G 12Go 256Go Orange,honor,Smartphone,https://boutique-e.example/produit/162,50
+163,boutique_a,Smartphone Infinix Hot 60 / 8 Go / 128 Go / Noir,infinix,Smartphone,https://boutique-a.example/produit/163,51
+164,boutique_b,Smartphone Infinix Hot 60 8Go 128Go Noir,infinix,Smartphone,https://boutique-b.example/produit/164,51
+165,boutique_c,Smartphone INFINIX Hot 60 8G/128G - Noir,infinix,Smartphone,https://boutique-c.example/produit/165,51
+166,boutique_d,Smartphone Infinix Hot 60 – 8 Go – 128 Go – Noir,infinix,Smartphone,https://boutique-d.example/produit/166,51
+167,boutique_e,Smartphone Infinix Hot 60 8Go 128Go Noir,infinix,Smartphone,https://boutique-e.example/produit/167,51
+168,boutique_b,Smartphone Infinix Note 50 Pro 8Go 256Go Gris,infinix,Smartphone,https://boutique-b.example/produit/168,52
+169,boutique_d,Smartphone Infinix Note 50 Pro – 8 Go – 256 Go – Gris,infinix,Smartphone,https://boutique-d.example/produit/169,52
+170,boutique_a,Smartphone Infinix Note 50 Pro / 8 Go / 256 Go / Violet,infinix,Smartphone,https://boutique-a.example/produit/170,53
+171,boutique_c,Smartphone INFINIX Note 50 Pro 8G/256G - Violet,infinix,Smartphone,https://boutique-c.example/produit/171,53
+172,boutique_d,Smartphone Infinix Note 50 Pro – 8 Go – 256 Go – Violet,infinix,Smartphone,https://boutique-d.example/produit/172,53
+173,boutique_e,Smartphone Infinix Note 50 Pro 8Go 256Go Violet,infinix,Smartphone,https://boutique-e.example/produit/173,53
+174,boutique_a,Smartphone Tecno Spark 40 / 8 Go / 128 Go / Noir,tecno,Smartphone,https://boutique-a.example/produit/174,54
+175,boutique_b,Smartphone Tecno Spark 40 8Go 128Go Noir,tecno,Smartphone,https://boutique-b.example/produit/175,54
+176,boutique_c,Smartphone TECNO Spark 40 8G/128G - Noir,tecno,Smartphone,https://boutique-c.example/produit/176,54
+177,boutique_a,Smartphone Tecno Spark 40 / 8 Go / 128 Go / Blanc,tecno,Smartphone,https://boutique-a.example/produit/177,55
+178,boutique_b,Smartphone Tecno Spark 40 8Go 128Go Blanc,tecno,Smartphone,https://boutique-b.example/produit/178,55
+179,boutique_c,Smartphone TECNO Spark 40 8G/128G - Blanc,tecno,Smartphone,https://boutique-c.example/produit/179,55
+180,boutique_d,Smartphone Tecno Spark 40 – 8 Go – 128 Go – Blanc,tecno,Smartphone,https://boutique-d.example/produit/180,55
+181,boutique_e,Smartphone Tecno Spark 40 8Go 128Go Blanc,tecno,Smartphone,https://boutique-e.example/produit/181,55
+182,boutique_a,Smartphone Oppo A5 Pro / 8 Go / 256 Go / Noir,oppo,Smartphone,https://boutique-a.example/produit/182,56
+183,boutique_b,Smartphone Oppo A5 Pro 8Go 256Go Noir,oppo,Smartphone,https://boutique-b.example/produit/183,56
+184,boutique_d,Smartphone Oppo A5 Pro – 8 Go – 256 Go – Noir,oppo,Smartphone,https://boutique-d.example/produit/184,56
+185,boutique_a,Smartphone Oppo A5 Pro / 8 Go / 256 Go / Marron,oppo,Smartphone,https://boutique-a.example/produit/185,57
+186,boutique_b,Smartphone Oppo A5 Pro 8Go 256Go Marron,oppo,Smartphone,https://boutique-b.example/produit/186,57
+187,boutique_a,Smartphone Vivo Y29 / 6 Go / 128 Go / Noir,vivo,Smartphone,https://boutique-a.example/produit/187,58
+188,boutique_b,Smartphone Vivo Y29 6Go 128Go Noir,vivo,Smartphone,https://boutique-b.example/produit/188,58
+189,boutique_c,Smartphone VIVO Y29 6G/128G - Noir,vivo,Smartphone,https://boutique-c.example/produit/189,58
+190,boutique_d,Smartphone Vivo Y29 – 6 Go – 128 Go – Noir,vivo,Smartphone,https://boutique-d.example/produit/190,58
+191,boutique_a,Smartphone Vivo Y29 / 6 Go / 128 Go / Vert,vivo,Smartphone,https://boutique-a.example/produit/191,59
+192,boutique_b,Smartphone Vivo Y29 6Go 128Go Vert,vivo,Smartphone,https://boutique-b.example/produit/192,59
+193,boutique_a,Smartphone Apple iPhone 16 / 8 Go / 128 Go / Noir,apple,Smartphone,https://boutique-a.example/produit/193,60
+194,boutique_b,Smartphone Apple iPhone 16 8Go 128Go Noir,apple,Smartphone,https://boutique-b.example/produit/194,60
+195,boutique_e,Smartphone Apple iPhone 16 8Go 128Go Noir,apple,Smartphone,https://boutique-e.example/produit/195,60
+196,boutique_a,Smartphone Apple iPhone 16 / 8 Go / 128 Go / Blanc,apple,Smartphone,https://boutique-a.example/produit/196,61
+197,boutique_b,Smartphone Apple iPhone 16 8Go 128Go Blanc,apple,Smartphone,https://boutique-b.example/produit/197,61
+198,boutique_d,Smartphone Apple iPhone 16 – 8 Go – 128 Go – Blanc,apple,Smartphone,https://boutique-d.example/produit/198,61
+199,boutique_e,Smartphone Apple iPhone 16 8Go 128Go Blanc,apple,Smartphone,https://boutique-e.example/produit/199,61
+200,boutique_a,Smartphone Apple iPhone 17 Pro / 12 Go / 256 Go / Argent,apple,Smartphone,https://boutique-a.example/produit/200,62
+201,boutique_b,Smartphone Apple iPhone 17 Pro 12Go 256Go Argent,apple,Smartphone,https://boutique-b.example/produit/201,62
+202,boutique_c,Smartphone APPLE iPhone 17 Pro 12G/256G - Argent,apple,Smartphone,https://boutique-c.example/produit/202,62
+203,boutique_a,Smartphone Apple iPhone 17 Pro / 12 Go / 256 Go / Orange,apple,Smartphone,https://boutique-a.example/produit/203,63
+204,boutique_b,Smartphone Apple iPhone 17 Pro 12Go 256Go Orange,apple,Smartphone,https://boutique-b.example/produit/204,63
+205,boutique_d,Smartphone Apple iPhone 17 Pro – 12 Go – 256 Go – Orange,apple,Smartphone,https://boutique-d.example/produit/205,63
+206,boutique_e,Smartphone Apple iPhone 17 Pro 12Go 256Go Orange,apple,Smartphone,https://boutique-e.example/produit/206,63

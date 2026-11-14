@@ -1,59 +1,58 @@
-"""Streamlit dashboard: streamlit run dashboard/app.py"""
+"""Streamlit dashboard: streamlit run dashboard/app.py  (DASHBOARD_DEMO=1 for the demo data)"""
 from __future__ import annotations
 
 import sys
-from decimal import Decimal
 from pathlib import Path
 
 import pandas as pd
 import plotly.express as px
 import streamlit as st
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from tracker.config import settings  # noqa: E402
-from tracker.db import connect, read_sql  # noqa: E402
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from sources import DEMO, open_source  # noqa: E402
 
 st.set_page_config(page_title="Suivi des prix concurrents", page_icon="📊", layout="wide")
 
-SITES = {k: v["name"] for k, v in settings.load_sites().items()}
+
 def dt(v) -> str:
     """1099.5 -> '1 099,500 DT'; empty -> '—'"""
     return "—" if pd.isna(v) else f"{v:,.3f} DT".replace(",", " ").replace(".", ",")
 
 
-COLORS = {"Tunisianet": "#2a78d6", "Spacenet": "#e8762c", "Mytek": "#1baf7a", "Zoom": "#8e5bd0", "Technopro": "#d4447c", "Égalité": "#98a2b3"}
+@st.cache_resource
+def source():
+    return open_source()
 
 
 @st.cache_data(ttl=300)
-def q(sql: str, params: tuple | None = None) -> pd.DataFrame:
-    with connect() as conn:
-        df = read_sql(conn, sql, params)
-    # Postgres NUMERIC arrives as Decimal; charts want floats.
-    for col in df.columns:
-        if df[col].map(lambda v: isinstance(v, Decimal)).any():
-            df[col] = pd.to_numeric(df[col])
-    return df
+def load(what: str, *args) -> pd.DataFrame:
+    return getattr(source(), what)(*args)
 
 
-runs = q("SELECT id, started_at, finished_at, status, products_seen, pages_fetched, errors, report "
-         "FROM runs WHERE status <> 'running' ORDER BY id DESC LIMIT 60")
+SITES = source().sites
+PALETTE = ["#2a78d6", "#e8762c", "#1baf7a", "#8e5bd0", "#d4447c", "#c49a12"]
+COLORS = {name: PALETTE[i % len(PALETTE)] for i, name in enumerate(SITES.values())} | {"Égalité": "#98a2b3"}
+
+runs = load("runs")
 if runs.empty:
     st.info("Aucun relevé pour l'instant. Lancez `python -m tracker run`.")
     st.stop()
 
 last = runs.iloc[0]
-latest = q("SELECT * FROM latest_prices WHERE run_id = %s", (int(last["id"]),))
+latest = load("latest", int(last["id"]))
 latest["Site"] = latest["site"].map(SITES)
 
 # --- header & KPIs ------------------------------------------------------------------------
 st.title("Suivi des prix concurrents")
+if DEMO:
+    st.info("**Démo** · boutiques fictives et prix générés : la même application que le vrai tableau de bord, "
+            "sans republier de données collectées. [Code source sur GitHub]"
+            "(https://github.com/MedAmine-SUDO/competitor-price-tracker)", icon="🧪")
 status_icon = {"ok": "✅", "degraded": "⚠️", "failed": "❌"}.get(last["status"], "")
 st.caption(f"Dernier relevé : {pd.Timestamp(last['started_at']).tz_convert('Africa/Tunis'):%d/%m/%Y %H:%M} "
            f"· {status_icon} {last['status'].upper()} · {last['report'].get('duration_s', 0) / 60:.1f} min")
 
-drops = q("""SELECT p.site, p.name, a.old_price, a.new_price, a.drop_pct, p.url, r.started_at
-             FROM alerts a JOIN products p ON p.id = a.product_id JOIN runs r ON r.id = a.run_id
-             ORDER BY r.started_at DESC, a.drop_pct DESC LIMIT 200""")
+drops = load("drops")
 c1, c2, c3, c4 = st.columns(4)
 c1.metric("Produits suivis", f"{len(latest):,}".replace(",", " "))
 c2.metric("Sites", latest["site"].nunique())
@@ -103,9 +102,7 @@ with tab_hist:
     choice = st.selectbox("Produit (comparé entre sites)", groups["name"].tolist()) if len(groups) else None
     if choice:
         gid = int(groups.loc[groups["name"] == choice, "group_id"].iloc[0])
-        hist = q("""SELECT p.site, s.scraped_at, COALESCE(s.promo_price, s.price) AS prix, s.price AS prix_normal
-                    FROM price_snapshots s JOIN products p ON p.id = s.product_id
-                    WHERE p.group_id = %s ORDER BY s.scraped_at""", (gid,))
+        hist = load("history", gid)
         hist["Site"] = hist["site"].map(SITES)
         hist["scraped_at"] = pd.to_datetime(hist["scraped_at"], utc=True).dt.tz_convert("Africa/Tunis")
         fig = px.line(hist, x="scraped_at", y="prix", color="Site", markers=True, line_shape="hv",

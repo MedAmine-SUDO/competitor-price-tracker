@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>Suivi des prix concurrents · démo</title>
+  <meta name="description" content="Démo interactive du tableau de bord : prix de 5 boutiques comparés chaque jour, historique et baisses de prix." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@stlite/browser@1.12.0/build/stlite.css" />
+</head>
+<body>
+  <!-- The real dashboard (dashboard/app.py) running in the browser with stlite, on demo data. -->
+  <div id="root"></div>
+  <script type="module">
+    import { mount } from "https://cdn.jsdelivr.net/npm/@stlite/browser@1.12.0/build/stlite.js";
+    const demo = ["sites.json", "runs.json", "products.csv", "snapshots.csv", "alerts.csv"];
+    mount(
+      {
+        requirements: ["plotly", "jinja2", "tzdata"],
+        entrypoint: "app.py",
+        env: { DASHBOARD_DEMO: "1" },
+        files: {
+          "app.py": { url: "./app.py" },
+          "sources.py": { url: "./sources.py" },
+          ...Object.fromEntries(demo.map((f) => [`demo/${f}`, { url: `./demo/${f}` }])),
+        },
+      },
+      document.getElementById("root"),
+    );
+  </script>
+</body>
+</html>
