@@ -34,6 +34,9 @@ TEXT = {
         "who_cheapest": "Qui est le moins cher, sur les produits communs", "products": "produits",
         "pick": "Produit (comparé entre sites)", "paid": "Prix payé (DT)",
         "paid_note": "Prix payé = prix promo s'il y en a un, sinon prix normal. Un point par relevé quotidien.",
+        "duration_note": "Durée : surtout des pauses voulues. Les sites sont lus en parallèle, chacun à son rythme, "
+                         "et le plus lent fixe la durée (jusqu'à 90 s entre deux pages pour un site qui limite "
+                         "les robots). Le rapport est prêt avant 8 h.",
         "no_drops": "Aucune baisse de plus de 10 % détectée pour l'instant.",
         "date": "Date", "old": "Ancien prix", "new": "Nouveau prix", "drop": "Baisse %", "link": "Lien",
         "open": "ouvrir", "per_run": "Produits récupérés par relevé", "run": "Relevé", "start": "Début",
@@ -56,6 +59,9 @@ TEXT = {
         "who_cheapest": "Who is cheapest, on products sold by several shops", "products": "products",
         "pick": "Product (compared across shops)", "paid": "Price paid (TND)",
         "paid_note": "Price paid = promo price when there is one, otherwise the regular price. One point per daily run.",
+        "duration_note": "Duration: mostly deliberate pauses. Shops are read in parallel, each at its own pace, "
+                         "and the slowest one sets the total (up to 90 s between pages for a shop that limits "
+                         "bots). The report is ready before 8:00.",
         "no_drops": "No drop above 10% detected yet.",
         "date": "Date", "old": "Old price", "new": "New price", "drop": "Drop %", "link": "Link",
         "open": "open", "per_run": "Products collected per run", "run": "Run", "start": "Started",
@@ -123,8 +129,7 @@ if DEMO:
 status_icon = {"ok": "✅", "degraded": "⚠️", "failed": "❌"}.get(last["status"], "")
 started = pd.Timestamp(last["started_at"]).tz_convert(TUNIS)
 st.caption(f"{L['last_run']} : {started:%d/%m/%Y %H:%M} · {status_icon} "
-           f"{L['status'].get(last['status'], last['status'].upper())} · "
-           f"{last['report'].get('duration_s', 0) / 60:.1f} min")
+           f"{L['status'].get(last['status'], last['status'].upper())}")
 
 drops = load("drops")
 c1, c2, c3, c4 = st.columns(4)
@@ -229,3 +234,4 @@ with tab_runs:
                              "products_seen": L["tracked"], "pages_fetched": L["pages"], "errors": L["errors"],
                              "duration": L["duration"], "alerts": L["alerts"]}),
         width="stretch", hide_index=True)
+    st.caption(L["duration_note"])
