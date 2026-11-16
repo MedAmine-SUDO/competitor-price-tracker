@@ -52,7 +52,7 @@ Measured on the run of **16 Nov 2026** (laptops + smartphones, 5 shops, 0 errors
 | | |
 | --- | --- |
 | 🛒 **Products tracked** | **3,687** · Spacenet 1,249 · Tunisianet 1,152 · Zoom 522 · Mytek 494 · Technopro 270 |
-| 🔗 **Same product on 2+ shops** | **750**, about half by manufacturer reference, the rest by name + specs |
+| 🔗 **Same product on 2+ shops** | **749**, about half by manufacturer reference, the rest by name + specs |
 | 📉 **Price drops caught (> 10 %)** | **10** in the first week (largest −18.1 %), e.g. the Galaxy S26 Ultra went from 5,999 to 5,399 DT on one shop, undercutting the other |
 | ⏱️ **Run time** | **4 shops in ~4 minutes**, in parallel; the 5th (Mytek) is paced on purpose at one page every 90 s to respect its limits. Report ready by 07:55 |
 | 🧪 **Tests** | **50**, on hand-written HTML (no copies of the sites) |
