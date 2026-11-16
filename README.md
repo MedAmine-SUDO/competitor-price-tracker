@@ -38,7 +38,7 @@ that started yesterday.
 
 **This tracker does it for you:**
 
-- 🕖 **Every morning, automatically.** A scheduled run reads ~2,500 products in about 3 minutes.
+- 🕖 **Every morning, automatically.** A scheduled run reads ~3,700 products from 5 shops, and the report is ready before 8:00.
 - 🔗 **The same product, side by side.** "HP 15-fd0438nk i3 8Go 512Go" is found on every shop that sells it, even when each shop names it differently.
 - 📉 **Drops come to you.** Any price that falls by more than 10% lands in your inbox, with the competitors' price for context.
 - 🤝 **Polite by design.** It follows robots.txt and rate limits, and it stops when a site says stop.
@@ -47,17 +47,18 @@ that started yesterday.
 
 ## 📊 Real results
 
-Measured on the run of **14 Nov 2026** (laptops + smartphones):
+Measured on the run of **16 Nov 2026** (laptops + smartphones, 5 shops, 0 errors):
 
 | | |
 | --- | --- |
-| 🛒 **Products tracked** | **2,448** · Tunisianet 1,152 · Spacenet 1,248 · Mytek 48 |
-| 🔗 **Same product on 2+ shops** | **490**, about two thirds by manufacturer reference, the rest by name + specs |
-| 📉 **Price drops caught (> 10 %)** | **7**, e.g. the Galaxy S26 Ultra went from 5,999 to 5,399 DT on one shop, undercutting the other |
-| ⏱️ **Run time** | **3 minutes**, 94 pages |
-| 🧪 **Tests** | **48**, on hand-written HTML (no copies of the sites) |
+| 🛒 **Products tracked** | **3,687** · Spacenet 1,249 · Tunisianet 1,152 · Zoom 522 · Mytek 494 · Technopro 270 |
+| 🔗 **Same product on 2+ shops** | **750**, about half by manufacturer reference, the rest by name + specs |
+| 📉 **Price drops caught (> 10 %)** | **10** in the first week (largest −18.1 %), e.g. the Galaxy S26 Ultra went from 5,999 to 5,399 DT on one shop, undercutting the other |
+| ⏱️ **Run time** | **4 shops in ~4 minutes**, in parallel; the 5th (Mytek) is paced on purpose at one page every 90 s to respect its limits. Report ready by 07:55 |
+| 🧪 **Tests** | **50**, on hand-written HTML (no copies of the sites) |
 
-Zoom and Technopro joined on 15 Nov to widen coverage beyond Mytek, which limits automated access
+Zoom and Technopro joined on 15 Nov. Mytek is read slowly on purpose: at 20 s between pages its bot
+check stopped every run on the third page; at 90 s all 15 pages go through
 (see [Scraping rules](#%EF%B8%8F-scraping-rules)).
 
 <br/>
@@ -164,6 +165,8 @@ overrides the model-number check, because shops do mistype names: one lists the 
 <br/>
 
 - **Retries** on timeouts, 429 and 5xx. Permanent errors (403/404) are not retried.
+- **End of catalog**: pagination stops when a page has no "next" link, since some shops answer
+  HTTP 500 past their last page instead of repeating it.
 - **Isolation**: a broken card or a crashed site never stops the others.
 - **Breakage detection**: a site returning far fewer products than its recent average marks the run
   `degraded`, and the report says whether it was stopped by a bot check or probably changed its HTML.
@@ -180,7 +183,7 @@ overrides the model-number check, because shops do mistype names: one lists the 
 | --- | --- |
 | 🌐 **Public pages only** | Category listings. No login, no cart, no personal data. |
 | 🤖 **robots.txt, every request** | Checked with a wildcard-aware parser. Mytek forbids any URL with `?`, so its pagination is never requested. `python -m tracker robots` prints the verdict for every configured URL. |
-| 🐢 **Rate limits** | 3–20 s between two requests to the same shop (longer if robots.txt asks), and no images or fonts downloaded. |
+| 🐢 **Rate limits** | 3–90 s between two requests to the same shop (longer if robots.txt asks), and no images or fonts downloaded. |
 | ✋ **No bypassing** | If a shop shows a bot check, the run stops that shop for the day and reports it. Coverage grows by adding shops, not by pushing harder. |
 | 🔒 **Data stays private** | Scraped prices stay in your database. The public demo runs on generated data, and the tests use hand-written HTML. |
 
@@ -296,7 +299,7 @@ Check the timer with `systemctl --user list-timers` and its logs with `journalct
 | Outputs | openpyxl (Excel) · SMTP email · Telegram Bot API |
 | Dashboard | Streamlit · Altair, in French or English; public demo on stlite + GitHub Pages |
 | Scheduling | systemd timer · cron in Docker · optional Airflow DAG |
-| Quality | pytest (48 tests) · GitHub Actions |
+| Quality | pytest (50 tests) · GitHub Actions |
 
 <details>
 <summary><b>Project structure</b></summary>

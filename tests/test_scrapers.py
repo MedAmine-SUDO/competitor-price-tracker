@@ -120,3 +120,45 @@ def test_technopro_cards():
     it = items[0]
     assert it.price == Decimal("599.000") and it.promo_price is None
     assert it.reference == "DEMO-8-128-BK" and it.in_stock is False
+
+
+def _page(ids: list[int], next_page: int | None) -> str:
+    cards = "".join(
+        f'<article class="product-miniature" data-id-product="{i}"><h2 class="product-title">'
+        f'<a href="https://shop.example/{i}.html">Demo {i}</a></h2>'
+        f'<div class="product-price-and-shipping"><span class="product-price">{i},000 DT</span></div></article>'
+        for i in ids)
+    nxt = f'<a rel="next" class="next" href="?page={next_page}">Suivant</a>' if next_page else ""
+    return f'{cards}<nav class="pagination"><a href="?page=1">1</a>{nxt}</nav>'
+
+
+class FakeFetcher:
+    """Serves two full pages, then HTTP 500 like Technopro does past its last page."""
+
+    def __init__(self, pages: dict[int, str]):
+        self.pages, self.calls = pages, []
+
+    def get(self, url: str) -> str:
+        page = int(url.split("page=")[1]) if "page=" in url else 1
+        self.calls.append(page)
+        if page not in self.pages:
+            from tracker.fetch import FetchError
+            raise FetchError(f"giving up on {url} after 5 tries: HTTP 500")
+        return self.pages[page]
+
+
+def test_pagination_stops_when_next_link_disappears():
+    fetcher = FakeFetcher({1: _page([1, 2], 2), 2: _page([3, 4], None)})
+    items, result = TechnoproScraper({}).scrape_category(
+        fetcher, {"name": "Smartphone", "url": "https://shop.example/phones.html", "max_pages": 25})
+    assert [i.site_product_id for i in items] == ["1", "2", "3", "4"]
+    assert fetcher.calls == [1, 2] and result.errors == []
+
+
+def test_pagination_without_next_links_keeps_old_behaviour():
+    # A theme that never shows rel=next: keep paginating until a page brings nothing new.
+    pages = {1: _page([1], None), 2: _page([2], None), 3: _page([2], None)}
+    fetcher = FakeFetcher(pages)
+    items, _ = TechnoproScraper({}).scrape_category(
+        fetcher, {"name": "Smartphone", "url": "https://shop.example/phones.html", "max_pages": 10})
+    assert len(items) == 2 and fetcher.calls == [1, 2, 3]

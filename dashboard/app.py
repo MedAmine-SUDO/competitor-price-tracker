@@ -21,6 +21,8 @@ TEXT = {
         "title": "Suivi des prix concurrents",
         "demo": "**Démo** · boutiques fictives et prix générés : la même application que le vrai tableau de bord, "
                 "sans republier de données collectées. [Code source sur GitHub]",
+        "demo_sample": "Échantillon figé de {n} relevés quotidiens ({first} → {last}), généré une fois : "
+                       "le vrai outil, lui, tourne chaque matin.",
         "no_runs": "Aucun relevé pour l'instant. Lancez `python -m tracker run`.",
         "last_run": "Dernier relevé", "status": {"ok": "OK", "degraded": "INCOMPLET", "failed": "ÉCHEC"},
         "tracked": "Produits suivis", "sites": "Sites", "comparable": "Produits comparables",
@@ -41,6 +43,8 @@ TEXT = {
         "title": "Competitor price tracker",
         "demo": "**Demo** · fictional shops and generated prices: the same app as the real dashboard, "
                 "without republishing any scraped data. [Source code on GitHub]",
+        "demo_sample": "Fixed sample of {n} daily runs ({first} → {last}), generated once: "
+                       "the real tracker runs every morning.",
         "no_runs": "No run yet. Start one with `python -m tracker run`.",
         "last_run": "Last run", "status": {"ok": "OK", "degraded": "INCOMPLETE", "failed": "FAILED"},
         "tracked": "Products tracked", "sites": "Shops", "comparable": "Comparable products",
@@ -113,7 +117,9 @@ latest["Site"] = latest["site"].map(SITES)
 # --- header & KPIs ------------------------------------------------------------------------
 head.title(L["title"])
 if DEMO:
-    st.info(L["demo"] + "(https://github.com/MedAmine-SUDO/competitor-price-tracker)", icon="🧪")
+    span = pd.to_datetime(runs["started_at"]).dt.tz_convert(TUNIS)
+    sample = L["demo_sample"].format(n=len(runs), first=f"{span.min():%d/%m/%Y}", last=f"{span.max():%d/%m/%Y}")
+    st.info(L["demo"] + "(https://github.com/MedAmine-SUDO/competitor-price-tracker)  \n" + sample, icon="🧪")
 status_icon = {"ok": "✅", "degraded": "⚠️", "failed": "❌"}.get(last["status"], "")
 started = pd.Timestamp(last["started_at"]).tz_convert(TUNIS)
 st.caption(f"{L['last_run']} : {started:%d/%m/%Y %H:%M} · {status_icon} "

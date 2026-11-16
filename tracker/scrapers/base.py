@@ -58,6 +58,10 @@ class Scraper:
         query["page"] = str(page)
         return urlunsplit(parts._replace(query=urlencode(query)))
 
+    def has_next_page(self, html: str) -> bool | None:
+        """True/False when the page says whether a next page exists, None when it can't tell."""
+        return None
+
     # -- shared -----------------------------------------------------------------------
     def parse_listing(self, html: str, category: str) -> list[Listing]:
         soup = BeautifulSoup(html, "lxml")
@@ -82,6 +86,7 @@ class Scraper:
         result = CategoryResult(category=name, errors=[])
         items: list[Listing] = []
         seen_ids: set[str] = set()
+        saw_next_link = False
 
         for page in range(1, max_pages + 1):
             page_url = url if page == 1 else self.page_url(url, page)
@@ -107,6 +112,12 @@ class Scraper:
             seen_ids.update(i.site_product_id for i in new)
             items.extend(new)
             log.info("%s | %-12s | page %2d | %3d products", self.site, name, page, len(new))
+            # Trust a missing "next" link only once the theme has shown one: some sites answer
+            # HTTP 500 past the last page instead of repeating it.
+            has_next = self.has_next_page(html)
+            saw_next_link = saw_next_link or bool(has_next)
+            if saw_next_link and has_next is False:
+                break
 
         result.listings = len(items)
         if not items and not result.errors:
@@ -122,6 +133,12 @@ class PrestaShopScraper(Scraper):
     reference_selector = ".product-reference"
     stock_selector = "#stock_availability, .product-quantities"
     price_selector = ".product-price-and-shipping .price, .price"
+
+    def has_next_page(self, html: str) -> bool | None:
+        nav = BeautifulSoup(html, "lxml").select_one("nav.pagination, .pagination")
+        if nav is None:
+            return None
+        return nav.select_one('a[rel~="next"], a.next') is not None
 
     def parse_card(self, card: Tag, category: str) -> Listing | None:
         pid = card.get("data-id-product")

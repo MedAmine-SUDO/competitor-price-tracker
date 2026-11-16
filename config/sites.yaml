@@ -34,7 +34,7 @@ sites:
     name: Mytek
     base_url: https://www.mytek.tn
     engine: browser       # product grid is rendered by JavaScript -> Playwright
-    min_delay_s: 20       # faster pacing triggers the site's bot check; 20 s keeps it happy
+    min_delay_s: 90       # 20 s triggered the bot check on the 3rd page every run; 90 s passed 5/5 (16 Nov)
     # Mytek's robots.txt forbids every URL containing "?", so we never request
     # ?p=2 etc. Only page 1 of each category is fetched.
     paginate: false
