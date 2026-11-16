@@ -116,6 +116,11 @@ warning, and a scheduler that catches up after the machine was off.
 </tr>
 </table>
 
+<p align="center">
+<img src="docs/img/excel-comparison.png" alt="Excel report: the same products compared across shops, cheapest price in green" width="100%" /><br/>
+<sub>The morning Excel file, "Comparatif" sheet: one row per product, the cheapest shop in green (demo data, fictional shops)</sub>
+</p>
+
 <br/>
 
 ## ⚙️ How it works
