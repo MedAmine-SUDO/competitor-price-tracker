@@ -4,12 +4,13 @@ from __future__ import annotations
 import logging
 import time
 from concurrent.futures import ThreadPoolExecutor
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
+from zoneinfo import ZoneInfo
 
 from . import alerts, notify
 from .cleaning import clean_listings
 from .config import settings
-from .db import connect, finish_run, init_db, recent_site_volumes, save_listings, start_run
+from .db import connect, finish_run, init_db, last_scraped, recent_site_volumes, save_listings, start_run
 from .export import build_excel
 from .fetch import BotChallenge, HttpFetcher, Politeness
 from .matching import match_products, save_groups
@@ -18,6 +19,7 @@ from .scrapers.base import CategoryResult
 from .telegram import esc
 
 log = logging.getLogger("tracker.pipeline")
+TUNIS = ZoneInfo("Africa/Tunis")
 
 
 def scrape_site(key: str, cfg: dict, politeness: Politeness, max_pages: int | None) -> dict:
@@ -62,6 +64,20 @@ def scrape_site(key: str, cfg: dict, politeness: Politeness, max_pages: int | No
     }
 
 
+def due_sites(sites_cfg: dict, last: dict[str, datetime], today: date) -> tuple[dict, dict[str, str]]:
+    """Split sites into those to scrape today and those skipped by `every_days`.
+    Skipped sites map to the day (ISO) of their last prices, which the report reuses."""
+    due, skipped = {}, {}
+    for key, cfg in sites_cfg.items():
+        seen = last.get(key)
+        seen_day = seen.astimezone(TUNIS).date() if seen else None
+        if seen_day and (today - seen_day).days < cfg.get("every_days", 1):
+            skipped[key] = seen_day.isoformat()
+        else:
+            due[key] = cfg
+    return due, skipped
+
+
 def decide_status(site_reports: dict, expected: dict[str, float]) -> tuple[str, list[str]]:
     """ok / degraded / failed, plus human-readable warnings."""
     warnings = []
@@ -90,12 +106,20 @@ def run_pipeline(sites: list[str] | None = None, max_pages: int | None = None,
 
     with connect() as conn:
         init_db(conn)
+        # Sites named on the command line are always scraped.
+        if sites:
+            to_scrape, skipped = sites_cfg, {}
+        else:
+            to_scrape, skipped = due_sites(sites_cfg, last_scraped(conn), started.astimezone(TUNIS).date())
         run_id = start_run(conn)
-        log.info("run #%d started for %s", run_id, ", ".join(sites_cfg))
+        log.info("run #%d started for %s", run_id, ", ".join(to_scrape))
+        for key, day in skipped.items():
+            log.info("%s skipped (every %d days), reusing prices from %s",
+                     key, sites_cfg[key]["every_days"], day)
 
         politeness = Politeness()
-        with ThreadPoolExecutor(max_workers=len(sites_cfg)) as pool:
-            futures = [pool.submit(scrape_site, k, v, politeness, max_pages) for k, v in sites_cfg.items()]
+        with ThreadPoolExecutor(max_workers=max(len(to_scrape), 1)) as pool:
+            futures = [pool.submit(scrape_site, k, v, politeness, max_pages) for k, v in to_scrape.items()]
             results = [f.result() for f in futures]
 
         all_listings = [l for r in results for l in r["listings"]]
@@ -128,6 +152,7 @@ def run_pipeline(sites: list[str] | None = None, max_pages: int | None = None,
             "run_id": run_id, "started_at": started.isoformat(), "status": status,
             "duration_s": round(time.monotonic() - t0, 1), "cleaning": clean_stats,
             "matched_groups": len(groups), "price_drops": n_alerts, "warnings": warnings,
+            "skipped": {k: {"last_day": d, "every_days": sites_cfg[k]["every_days"]} for k, d in skipped.items()},
             "sites": {k: {**v, "errors": len(v["errors"]), "error_details": v["errors"][:5]}
                       for k, v in site_reports.items()},
         }
@@ -160,6 +185,10 @@ def format_run_report(report: dict, sites_cfg: dict) -> str:
         extra = f", {s['retries']} relance(s)" if s["retries"] else ""
         extra += f", {s['errors']} erreur(s)" if s["errors"] else ""
         lines.append(f"• {esc(name)} : {s['products']} produits, {s['pages']} pages{extra}")
+    for key, s in report.get("skipped", {}).items():
+        name = sites_cfg.get(key, {}).get("name", key)
+        day = date.fromisoformat(s["last_day"])
+        lines.append(f"• {esc(name)} : relevé tous les {s['every_days']} jours, prix du {day:%d/%m} réutilisés")
     lines.append(f"🔗 {report['matched_groups']} produits comparés entre sites")
     lines.append(f"📉 {report['price_drops']} baisse(s) &gt; {settings.drop_threshold_pct:g}%")
     for w in report["warnings"]:

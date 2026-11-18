@@ -2,6 +2,7 @@
 # Add a category by pasting its listing URL. `max_pages` caps how deep we paginate.
 # `min_delay_s` is the pause between two requests to the same site; if the site's
 # robots.txt asks for a longer Crawl-delay, the longer value wins.
+# `every_days` (default 1) scrapes a site only every N days; skipped days reuse its last prices.
 
 sites:
   tunisianet:
@@ -35,6 +36,9 @@ sites:
     base_url: https://www.mytek.tn
     engine: browser       # product grid is rendered by JavaScript -> Playwright
     min_delay_s: 90       # 20 s triggered the bot check on the 3rd page every run; 90 s passed 5/5 (16 Nov)
+    # Even at 90 s the bot check came back on 17 and 18 Nov, so Mytek is only scraped
+    # every 3rd day; in between, the report and Excel reuse its last prices.
+    every_days: 3
     # Mytek's robots.txt forbids every URL containing "?", so we never request
     # ?p=2 etc. Only page 1 of each category is fetched.
     paginate: false

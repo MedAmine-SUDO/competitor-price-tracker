@@ -34,6 +34,15 @@ SELECT site, name, brand, reference, category, price, promo_price, effective_pri
 FROM latest_prices WHERE run_id = %s ORDER BY site, category, name
 """
 
+# A site skipped today (every_days) keeps the prices of its last scrapes, so it still
+# shows in the comparison. Older listings fall out, as the site has probably dropped them.
+CARRIED_SQL = """
+SELECT site, name, brand, reference, category, price, promo_price, effective_price,
+       in_stock, stock_label, url, group_id
+FROM latest_prices WHERE site = %s AND scraped_at >= %s::date - %s * interval '1 day'
+ORDER BY category, name
+"""
+
 DROPS_SQL = """
 SELECT p.site, p.name, a.old_price, a.new_price, a.drop_pct, p.url
 FROM alerts a JOIN products p ON p.id = a.product_id
@@ -98,6 +107,10 @@ def comparison_table(today: pd.DataFrame, sites: list[str]) -> pd.DataFrame:
 def build_excel(conn, run_id: int, report: dict, sites_cfg: dict) -> Path:
     sites = list(sites_cfg)
     today = read_sql(conn, TODAY_SQL, (run_id,))
+    carried = [read_sql(conn, CARRIED_SQL, (site, s["last_day"], s["every_days"]))
+               for site, s in report.get("skipped", {}).items()]
+    if carried:
+        today = pd.concat([today, *carried], ignore_index=True)
     drops = read_sql(conn, DROPS_SQL, (run_id,))
     wb = Workbook()
 

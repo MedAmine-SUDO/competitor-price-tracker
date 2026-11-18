@@ -146,3 +146,27 @@ def test_bot_check_is_not_reported_as_html_change():
     blocked = {"a": {"products": 40, "errors": ["www.a.tn served a bot check page; stopping this site for today"]}}
     status, warnings = decide_status(blocked, {"a": 100})
     assert status == "degraded" and "anti-bot" in warnings[0] and "structure" not in warnings[0]
+
+
+def test_every_days_skips_recently_scraped_sites():
+    from datetime import date, datetime, timezone
+
+    from tracker.pipeline import due_sites
+
+    cfg = {"daily": {}, "slow": {"every_days": 3}, "new": {"every_days": 3}}
+    last = {"daily": datetime(2026, 11, 17, 6, 30, tzinfo=timezone.utc),
+            "slow": datetime(2026, 11, 16, 6, 30, tzinfo=timezone.utc)}
+    due, skipped = due_sites(cfg, last, date(2026, 11, 18))
+    assert set(due) == {"daily", "new"} and skipped == {"slow": "2026-11-16"}
+    due, skipped = due_sites(cfg, last, date(2026, 11, 19))
+    assert set(due) == {"daily", "slow", "new"} and skipped == {}
+
+
+def test_skipped_site_is_shown_in_the_report():
+    from tracker.pipeline import format_run_report
+
+    report = {"run_id": 12, "status": "ok", "duration_s": 120, "matched_groups": 700, "price_drops": 0,
+              "warnings": [], "sites": {"a": {"products": 10, "pages": 1, "retries": 0, "errors": 0}},
+              "skipped": {"mytek": {"last_day": "2026-11-16", "every_days": 3}}}
+    text = format_run_report(report, {"a": {"name": "A"}, "mytek": {"name": "Mytek"}})
+    assert "• Mytek : relevé tous les 3 jours, prix du 16/11 réutilisés" in text

@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 from contextlib import contextmanager
+from datetime import datetime
 from typing import Iterator
 
 import pandas as pd
@@ -77,6 +78,13 @@ def recent_site_volumes(conn, before_run: int, runs: int = 7) -> dict[str, float
     WHERE s.run_id IN (SELECT id FROM r) GROUP BY p.site
     """
     return {r["site"]: r["avg_products"] for r in conn.execute(q, (before_run, runs))}
+
+
+def last_scraped(conn) -> dict[str, datetime]:
+    """When each site last returned at least one price."""
+    q = """SELECT p.site, MAX(s.scraped_at) AS last FROM price_snapshots s
+           JOIN products p ON p.id = s.product_id GROUP BY p.site"""
+    return {r["site"]: r["last"] for r in conn.execute(q)}
 
 
 def read_sql(conn, query: str, params=None) -> pd.DataFrame:

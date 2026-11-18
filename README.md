@@ -54,11 +54,13 @@ Measured on the run of **16 Nov 2026** (laptops + smartphones, 5 shops, 0 errors
 | 🛒 **Products tracked** | **3,687** · Spacenet 1,249 · Tunisianet 1,152 · Zoom 522 · Mytek 494 · Technopro 270 |
 | 🔗 **Same product on 2+ shops** | **749**, about half by manufacturer reference, the rest by name + specs |
 | 📉 **Price drops caught (> 10 %)** | **10** in the first week (largest −18.1 %), e.g. the Galaxy S26 Ultra went from 5,999 to 5,399 DT on one shop, undercutting the other |
-| ⏱️ **Run time** | **4 shops in ~4 minutes**, in parallel; the 5th (Mytek) is paced on purpose at one page every 90 s to respect its limits. Report ready by 07:55 |
-| 🧪 **Tests** | **50**, on hand-written HTML (no copies of the sites) |
+| ⏱️ **Run time** | **4 shops in ~4 minutes**, in parallel; the 5th (Mytek) is paced on purpose at one page every 90 s and read every 3rd day to respect its limits. Report ready by 07:55 |
+| 🧪 **Tests** | **52**, on hand-written HTML (no copies of the sites) |
 
 Zoom and Technopro joined on 15 Nov. Mytek is read slowly on purpose: at 20 s between pages its bot
-check stopped every run on the third page; at 90 s all 15 pages go through
+check stopped every run on the third page; at 90 s all 15 pages went through on 16 Nov, but the check
+came back on 17 and 18 Nov. Since then Mytek is read **every 3rd day** only (`every_days: 3`), and on
+the days in between the report and the Excel reuse its last prices
 (see [Scraping rules](#%EF%B8%8F-scraping-rules)).
 
 <br/>
@@ -188,7 +190,7 @@ overrides the model-number check, because shops do mistype names: one lists the 
 | --- | --- |
 | 🌐 **Public pages only** | Category listings. No login, no cart, no personal data. |
 | 🤖 **robots.txt, every request** | Checked with a wildcard-aware parser. Mytek forbids any URL with `?`, so its pagination is never requested. `python -m tracker robots` prints the verdict for every configured URL. |
-| 🐢 **Rate limits** | 3–90 s between two requests to the same shop (longer if robots.txt asks), and no images or fonts downloaded. |
+| 🐢 **Rate limits** | 3–90 s between two requests to the same shop (longer if robots.txt asks), and no images or fonts downloaded. A shop that pushes back can be read every N days instead of daily (`every_days`), reusing its last prices in between. |
 | ✋ **No bypassing** | If a shop shows a bot check, the run stops that shop for the day and reports it. Coverage grows by adding shops, not by pushing harder. |
 | 🔒 **Data stays private** | Scraped prices stay in your database. The public demo runs on generated data, and the tests use hand-written HTML. |
 
@@ -289,6 +291,8 @@ Check the timer with `systemctl --user list-timers` and its logs with `journalct
 - **Shop**: on PrestaShop it's a handful of CSS selectors (see `tracker/scrapers/zoom.py`); otherwise
   write a `parse_card()` method. Register it in `tracker/scrapers/__init__.py` and add it to the YAML,
   with `engine: browser` if products are rendered by JavaScript.
+- **Slower schedule**: `every_days: 3` reads a shop only every 3rd day; skipped days reuse its prices
+  from the last scrape, and the report says so. `--sites <shop>` always scrapes it.
 
 </details>
 
@@ -304,7 +308,7 @@ Check the timer with `systemctl --user list-timers` and its logs with `journalct
 | Outputs | openpyxl (Excel) · SMTP email · Telegram Bot API |
 | Dashboard | Streamlit · Altair, in French or English; public demo on stlite + GitHub Pages |
 | Scheduling | systemd timer · cron in Docker · optional Airflow DAG |
-| Quality | pytest (50 tests) · GitHub Actions |
+| Quality | pytest (52 tests) · GitHub Actions |
 
 <details>
 <summary><b>Project structure</b></summary>
